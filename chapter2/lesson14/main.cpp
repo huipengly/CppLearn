@@ -3,9 +3,6 @@
 
 using namespace std;
 
-int feb::a;
-int feb::b;
-
 int main()
 {
     cout << "int feb1(int i)" << endl;
@@ -28,7 +25,7 @@ int main()
 
     for (int i = 0; i < 10; i++)
     {
-        cout << f1.febc() << endl;
+        cout << f1() << endl;
     }
 
     cout << "class feb f2" << endl;
@@ -37,7 +34,7 @@ int main()
 
     for (int i = 0; i < 5; i++)
     {
-        cout << f2.febc() << endl;
+        cout << f2() << endl;
     }
 
     return 0;

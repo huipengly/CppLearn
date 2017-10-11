@@ -37,7 +37,7 @@ feb::feb()
     b = 1;
 }
 
-int feb::febc()
+int feb::operator() ()
 {
     int ret;
     

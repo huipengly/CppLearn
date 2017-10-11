@@ -6,11 +6,11 @@ int feb2();
 class feb
 {
 private:
-    static int a;
-    static int b;
+    int a;
+    int b;
 public:
     feb();
-    int febc();
+    int operator() ();
 };
 
 #endif //_FEB_H_
