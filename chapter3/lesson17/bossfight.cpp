@@ -4,14 +4,35 @@ using namespace std;
 
 class Boss      //单例类
 {
-protected:
+private:
     static Boss *cInstance;
-
-    Boss()
+    class GC    //防止内存泄漏，这个类用来清理内存
     {
+    public:
+        ~GC()
+        {
+            if(cInstance != NULL)
+            {
+                cout << "~GC()" << endl;
+                delete cInstance;
+                cInstance = NULL;
+            }
+        }
 
-    }
+    };
+
+    static GC gc;
 public:
+    // Boss()
+    // {
+    // }
+
+    // ~Boss()
+    // {
+    //     cout << "~Boss()" << endl;
+    //     delete cInstance;
+    // }
+
     static Boss *GetInstance()
     {
         if(cInstance == NULL)
@@ -28,9 +49,11 @@ public:
         return 10;
     }
 
+
 };
 
 Boss *Boss::cInstance;
+Boss::GC Boss::gc; //防止内存泄漏，这个类用来清理内存，要声明
 
 class Master
 {
