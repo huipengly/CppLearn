@@ -18,7 +18,7 @@ int main()
     }
     if(ivec.size() < 2)
     {
-        cout << "please input 2 number at least" << endl;
+        cout << "please input 2 number at least!" << endl;
         return -1;
     }
     cout << "result" << endl;
