@@ -7,8 +7,8 @@ int fact(int n)
     {
         return n * fact(n - 1);
     }
-    else
+    else if (n == 0 || n == 1)
     {
-        return n;
+        return 1;               //0的阶乘是1
     }
 }
