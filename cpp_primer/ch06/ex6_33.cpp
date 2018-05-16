@@ -5,22 +5,23 @@ using std::vector;
 #include <string>
 using std::string;
 
-void print_vector(vector<string>::iterator str)
+//最初设想的是只给vector，不能用。又想用迭代器，但是觉得不优雅。看了GitHub，发现用的是迭代器。
+void print_vector(vector<string>::iterator begin, vector<string>::iterator end)
 {
-    if (str.begin() != str.end() - 1)
+    if (begin != end)
     {
-        cout << *str.begin();
-        print_vector(*(str.begin() + 1))
+        cout << *begin;
+        print_vector(++begin, end);
     }
     else
     {
-        cout << *str.begin();
+        cout << endl;
     }
 }
 
 int main()
 {
     vector<string> str = {"hello", " ", "world", "!"};
-    print_vector(str);
+    print_vector(str.begin(), str.end());
     return 0;
 }
