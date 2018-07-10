@@ -8,6 +8,12 @@ using std::istream; using std::ostream;
 
 struct Sales_data
 {
+    Sales_data(istream &is) { read(is, *this); }
+    Sales_data(const string&, const unsigned&, const double&);
+    Sales_data(const string& bookNo) { this->bookNo = bookNo; }
+    Sales_data() {}
+    
+
     string isbn() const { return bookNo; }
     Sales_data& combine(const Sales_data&);
     double avg_price() const;

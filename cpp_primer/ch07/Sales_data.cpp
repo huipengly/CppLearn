@@ -2,6 +2,13 @@
 
 using std::endl;
 
+Sales_data::Sales_data(const string &bookNo, const unsigned &units_sold, const double &revenue)
+{
+    this->bookNo = bookNo;
+    this->units_sold = units_sold;
+    this->revenue = revenue;
+}
+
 Sales_data& Sales_data::combine(const Sales_data &rhs)
 {
     units_sold += rhs.units_sold;
