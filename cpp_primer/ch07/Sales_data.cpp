@@ -2,11 +2,6 @@
 
 using std::endl;
 
-Sales_data::Sales_data(istream &is)
-{ 
-    read(is, *this);
-}
-
 Sales_data& Sales_data::combine(const Sales_data &rhs)
 {
     units_sold += rhs.units_sold;
