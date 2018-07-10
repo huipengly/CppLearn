@@ -27,7 +27,7 @@ public:
     Sales_data& combine(const Sales_data&);
 
 private:
-    double avg_price() const;
+    double avg_price() const { return revenue / units_sold; }
 
     string bookNo;
     unsigned units_sold = 0;
