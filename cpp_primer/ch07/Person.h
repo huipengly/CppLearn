@@ -3,6 +3,8 @@
 
 #include <string>
 using std::string;
+#include <iostream>
+using std::istream; using std::ostream;
 
 struct Person
 {
@@ -12,5 +14,8 @@ struct Person
     string get_name () const { return name; }
     string get_address() const { return address; }
 };
+
+istream &read(istream&, Person&);
+ostream &print(ostream&, const Person&);
 
 #endif //_PERSON_H_
