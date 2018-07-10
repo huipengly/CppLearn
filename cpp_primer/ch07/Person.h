@@ -6,22 +6,26 @@ using std::string;
 #include <iostream>
 using std::istream; using std::ostream;
 
-struct Person;
+class Person;
 istream &read(istream&, Person&);
 ostream &print(ostream&, const Person&);
 
-struct Person
+class Person
 {
+friend istream &read(istream&, Person&);
+friend ostream &print(ostream&, const Person&);
+public:
     Person() = default;
     Person(istream &is) { read(is, *this); }
     Person(const string &name, const string &address) :
             name(name), address(address) { }
 
-    string name;
-    string address;
-
     string get_name () const { return name; }
     string get_address() const { return address; }
+
+private:
+    string name;
+    string address;
 };
 
 #endif //_PERSON_H_
