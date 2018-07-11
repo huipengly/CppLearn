@@ -1,10 +1,29 @@
+#ifndef _SCREEN_H_
+#define _SCREEN_H_
+
 #include <string>
 using std::string;
 #include <iostream>
 using std::ostream;
+#include <vector>
+using std::vector;
+
+class Screen;
+
+class WindowMgr
+{
+public:
+    using ScreenIndex = vector<Screen>::size_type;
+    void clear(ScreenIndex);
+private:
+    //vector<Screen> screens{Screen(24, 80, ' ')};      //报错，不能在定义Screen之前使用其构造函数
+    vector<Screen> screens;
+};
 
 class Screen
 {
+    friend void WindowMgr::clear(ScreenIndex);
+
 public:
     using pos = string::size_type;
     Screen() = default;
@@ -25,3 +44,14 @@ private:
 
     string contents;
 };
+
+void WindowMgr::clear(ScreenIndex screen_index)     //卸载后面是因为需要Screen完成定义
+{
+    if (screen_index < screens.size())              //安全性判断
+    {
+        Screen &s = screens[screen_index];          //增加别名，提高程序可读性
+        s.contents = string(s.width * s.height, ' ');
+    }
+}
+
+#endif // _SCREEN_H_
