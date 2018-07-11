@@ -35,6 +35,7 @@ public:
     Screen &set(pos r, pos col, char ch) { contents[r * width + col] = ch; return *this; }
     Screen &display(ostream &os) { do_display(os); return *this; }
     const Screen &display(ostream &os) const { do_display(os); return *this; }
+    pos size();
 
 private:
     void do_display(ostream &os) const { os << contents; }
@@ -44,6 +45,11 @@ private:
 
     string contents;
 };
+
+inline Screen::pos Screen::size()
+{
+    return width * height;
+}
 
 void WindowMgr::clear(ScreenIndex screen_index)     //卸载后面是因为需要Screen完成定义
 {
