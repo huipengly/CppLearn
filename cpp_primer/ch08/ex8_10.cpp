@@ -3,7 +3,7 @@ using std::string;
 #include <sstream>
 using std::istringstream;
 #include <iostream>
-using std::cout; using std::endl;
+using std::cout; using std::endl; using std::cerr;
 #include <fstream>
 using std::ifstream;
 #include <vector>
@@ -11,11 +11,16 @@ using std::vector;
 
 void read_file()
 {
-    ifstream in("test_for_ex8_4.txt");
+    ifstream ifs("test_for_ex8_4.txt");
+    if (!ifs)    // 需要判断文件读取是否成功
+    {
+        cerr << "No data?" << endl;
+        return;
+    }
     string line;
     vector<string> linevec;
 
-    while(getline(in, line))
+    while(getline(ifs, line))
     {
         linevec.push_back(line);
     }
