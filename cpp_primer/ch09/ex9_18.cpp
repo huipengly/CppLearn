@@ -14,7 +14,7 @@ int main()
         sdeq.push_back(s);
     }
 
-    for (auto it = sdeq.begin(); it != sdeq.end(); ++it)
+    for (auto it = sdeq.cbegin(); it != sdeq.cend(); ++it)
     {
         cout << *it << endl;
     }
