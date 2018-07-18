@@ -22,11 +22,18 @@ void deleta_odd_number(forward_list<int> &iflist)
     }
 }
 
+// github写法
+auto remove_odds(forward_list<int>& flist)
+{
+    auto is_odd = [] (int i) { return i & 0x1; };
+    flist.remove_if(is_odd);
+}
+
 int main()
 {
     forward_list<int> iflist{0, 1, 1, 2, 3, 4, 5};
 
-    deleta_odd_number(iflist);
+    remove_odds(iflist);
 
     for (auto &i : iflist)
     {
