@@ -13,14 +13,16 @@ int main()
 
     for (auto &i : ilist)
     {
-        if (i & 0x1)
-        {
-            even_deque.push_back(i);
-        }
-        else
-        {
-            odd_deque.push_back(i);
-        }
+        // if (i & 0x1)
+        // {
+        //     odd_deque.push_back(i);
+        // }
+        // else
+        // {
+        //     even_deque.push_back(i);
+        // }
+
+        (i & 0x1 ? odd_deque : even_deque).push_back(i);
     }
 
     cout << "even number" << endl;
