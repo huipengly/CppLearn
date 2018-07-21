@@ -19,7 +19,7 @@ private:
     unsigned int day, month, year;
 };
 
-MyDate::MyDate(const string &str)
+MyDate::MyDate(const string &str) : month(0)
 {
     const vector<string> svec_month{"Jan", "Feb", "Mar", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
     for (auto it = svec_month.begin(); it != svec_month.end(); ++it)
@@ -56,6 +56,7 @@ int main()
 {
     print(MyDate("January 1, 1900"));
     print(MyDate("4/3/1990"));
+    print(MyDate("Oct 1 1900"));
     print(aa);
     return 0;
 }
