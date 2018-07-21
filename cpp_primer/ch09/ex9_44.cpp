@@ -7,7 +7,7 @@ void replace_string(string &s, const string &old_val, const string &new_val)
 {
 	for (auto i = 0; i != s.size() - old_val.size(); ++i)
 	{
-		string s2 = string(s, i, old_val.size());
+		string s2 = s.substr(i, old_val.size());	// substr返回范围内string的拷贝
 		if (s2 == old_val)
 		{
 			s.replace(i, old_val.size(), new_val);

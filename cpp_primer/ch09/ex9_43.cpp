@@ -5,7 +5,7 @@ using std::cout; using std::endl;
 
 void replace_string(string &s, const string &old_val, const string &new_val)
 {
-	for (auto it = s.begin(); it != s.end() - old_val.size(); ++it)
+	for (auto it = s.begin(); it != s.end() - old_val.size(); ++it)	// github程序这里使用了<=做范围比较，可以避免下面的bug
 	{
 		string s2 = string(it, it + old_val.size());
 		if (s2 == old_val)
