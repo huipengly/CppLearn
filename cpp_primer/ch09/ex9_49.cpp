@@ -24,13 +24,11 @@ void print_withou_word_with_ascender_and_descender(istream &is)
 int main()
 {
     ifstream ifs("data_for_ex9_49.txt");
-    if (ifs)
-    {
-        print_withou_word_with_ascender_and_descender(ifs);
-    }
-    else
+    if (!ifs)       //这么写，后面函数的缩进少一点
     {
         cerr << "open file failed!" << endl;
+        return -1;
     }
+    print_withou_word_with_ascender_and_descender(ifs);
     return 0;
 }
