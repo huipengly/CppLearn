@@ -11,22 +11,22 @@ using std::cout; using std::endl;
 int main()
 {
     int count = 10;
-    auto f = [count] () mutable -> int {if (count == 0) {return true;} --count; return false; };
+    auto f = [&count] () mutable -> int {if (count == 0) {return true;} --count; return false; };
     while(true)
     {
         if (f())
         {
-            cout << "zero" << endl;
+            cout << "count = " << count << endl;
             break;
         }
         else
         {
-            cout << "not zero" << endl;
+            cout << "count = " << count << endl;
         }
     }
     if (f())
     {
-        cout << "zero" << endl;
+        cout << "count = " << count << endl;
     }
     return 0;
 }
