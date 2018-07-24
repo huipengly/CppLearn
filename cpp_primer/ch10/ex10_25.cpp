@@ -12,7 +12,7 @@ using std::string;
 #include <iostream>
 using std::cout; using std::endl;
 #include <algorithm>
-using std::find_if_not; using std::sort; using std::stable_sort; using std::for_each;
+using std::partition; using std::sort; using std::stable_sort; using std::for_each;
 #include <functional>
 using std::bind; using std::placeholders::_1;
 
@@ -52,7 +52,7 @@ void biggies(vector<string> &words, string::size_type sz)
     elim_dumps(words);                              // 删除重复单词
     stable_sort(words.begin(), words.end()          // 按照字典顺序和字符串长度排序
                 , [](const string &str1, const string &str2){ return str1.size() < str2.size(); });
-    auto it = find_if_not(words.begin(), words.end()    // 返回第一个长度大于等于sz的迭代器
+    auto it = partition(words.begin(), words.end()    // 返回第一个长度大于等于sz的迭代器
                 , bind(check_size, _1, sz - 1));
     auto count = words.end() - it;                  // 有多少个单词长度大于sz
     cout << "共有" << count << "个单词长度大于等于" << sz << endl;
