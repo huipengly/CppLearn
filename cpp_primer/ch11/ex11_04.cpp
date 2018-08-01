@@ -5,7 +5,8 @@ using std::string;
 #include <iostream>
 using std::cin; using std::cout; using std::endl;
 #include <algorithm>
-using std::transform;
+using std::transform; using std::remove_if;
+#include <cctype>
 
 int main()
 {
@@ -15,10 +16,7 @@ int main()
     {
         string::size_type pos = string::npos;
         transform(word.begin(), word.end(), word.begin(), tolower);
-        if ((pos = word.find_first_of(",.?!")) != string::npos)
-        {
-            word.erase(pos);
-        }
+        word.erase(remove_if(word.begin(), word.end(), ispunct), word.end());
         ++word_count[word];
     }
 
