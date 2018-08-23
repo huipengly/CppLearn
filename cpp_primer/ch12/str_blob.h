@@ -33,8 +33,7 @@ public:
 
 private:
     shared_ptr<vector<string>> data;
-    void check(size_type i, const string &msg);
-    void check(size_type i, const string &msg) const;
+    void check(size_type i, const string &msg) const; // const的只需要一个，不需要有一个没有const的。如果this非const，当作const使用。
 };
 
 void StrBlob::pop_back()
@@ -65,14 +64,6 @@ const string& StrBlob::back() const
 {
     check(0, "back on empty StrBlob");
     return data->back();
-}
-
-void StrBlob::check(size_type i, const string &msg)
-{
-    if (i >= data->size())
-    {
-        throw out_of_range(msg);
-    }
 }
 
 void StrBlob::check(size_type i, const string &msg) const
