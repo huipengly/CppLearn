@@ -20,14 +20,18 @@
 using std::vector; using std::string;
 
 class StrBlobPtr;
+class ConstStrBlobPtr;
 
 class StrBlob {
 public:
     using size_type = vector<string>::size_type;
     friend class StrBlobPtr;
+    friend class ConstStrBlobPtr;
 
     StrBlobPtr begin();
     StrBlobPtr end();
+    ConstStrBlobPtr begin() const;
+    ConstStrBlobPtr end() const;
 
     StrBlob():data(std::make_shared<vector<string>>()) { }
     StrBlob(std::initializer_list<string> il):data(std::make_shared<vector<string>>(il)) { }
@@ -95,6 +99,33 @@ private:
     size_t curr;
 };
 
+class ConstStrBlobPtr
+{
+public:
+    ConstStrBlobPtr():curr(0) { }
+    ConstStrBlobPtr(const StrBlob &a, size_t sz = 0):wptr(a.data), curr(sz) { }
+    bool operator!=(const ConstStrBlobPtr& p) { return p.curr != curr; }
+    const string& deref() const {
+        auto p = check(curr, "dereference past end");
+        return (*p)[curr];
+    }
+    ConstStrBlobPtr& incr() {
+        check(curr, "increment past end of StrBlobPtr");
+        ++curr;
+        return *this;
+    }
+
+private:
+    std::shared_ptr<vector<string>> check(size_t i, const string &msg) const {
+        auto ret = wptr.lock();
+        if (!ret) throw std::runtime_error("unbound StrBlobPtr");
+        if (i >= ret->size()) throw std::out_of_range(msg);
+        return ret;
+    }
+    std::weak_ptr<vector<string>> wptr;
+    size_t curr;
+};
+
 StrBlobPtr StrBlob::begin()
 {
     return StrBlobPtr(*this);
@@ -103,6 +134,16 @@ StrBlobPtr StrBlob::begin()
 StrBlobPtr StrBlob::end()
 {
     return StrBlobPtr(*this, data->size());
+}
+
+ConstStrBlobPtr StrBlob::begin() const
+{
+    return ConstStrBlobPtr(*this);
+}
+
+ConstStrBlobPtr StrBlob::end() const
+{
+    return ConstStrBlobPtr(*this, data->size());
 }
 
 #endif
