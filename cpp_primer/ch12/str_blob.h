@@ -5,6 +5,10 @@
  * @author huipengly
  * @date 2018-08-22
  */
+#ifndef _STR_BLOB_H_
+#define _STR_BLOB_H_
+
+#include "str_blob_ptr.h"
 #include <memory>
 using std::shared_ptr; using std::make_shared;
 #include <vector>
@@ -16,9 +20,12 @@ using std::initializer_list;
 #include <stdexcept>
 using std::out_of_range;
 
+// class StrBlobPtr;
+
 class StrBlob
 {
 public:
+    friend class StrBlobPtr;
     typedef vector<string>::size_type size_type;
     StrBlob() : data(make_shared<vector<string>>()) {}
     StrBlob(initializer_list<string> il) : data(make_shared<vector<string>>(il)) {}
@@ -30,6 +37,9 @@ public:
     const string& front() const;        // 两个const。对于const的StrBlob，需要返回const string&
     string& back();
     const string& back() const;
+    // StrBlobPtr begin() { return StrBlobPtr(*this); }
+    // StrBlobPtr end() { return StrBlobPtr(*this, data->size()); }
+    StrBlobPtr begin();
 
 private:
     shared_ptr<vector<string>> data;
@@ -73,3 +83,5 @@ void StrBlob::check(size_type i, const string &msg) const
         throw out_of_range(msg);
     }
 }
+
+#endif
