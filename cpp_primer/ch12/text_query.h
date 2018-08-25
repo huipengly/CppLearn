@@ -83,7 +83,7 @@ QueryResult TextQuery::query(const string& s)
     }
     else
     {
-        return QueryResult();
+        return QueryResult(s, 0, ptext, pword_line_set);
     }
 }
 
