@@ -33,12 +33,13 @@ using std::istringstream;
 class TextQuery
 {
 public:
+    typedef vector<int>::size_type size_type;
     TextQuery(ifstream &);
     QueryResult query(const string &);
 private:
-    shared_ptr<vector<string>> ptext;                   //!< 存储文本，一行为一个string
-    shared_ptr<map<string, set<int>>> pword_line_set;   //!< 存储单词，和单词所在的列
-    map<string, int> word_number;                       //!< 记录单词出现次数
+    shared_ptr<vector<string>> ptext;                           //!< 存储文本，一行为一个string
+    map<string, shared_ptr<set<size_type>>> word_line;          //!< 存储单词，和单词所在的列
+    map<string, size_type> word_number;                         //!< 记录单词出现次数
 };
 
 
@@ -49,22 +50,33 @@ private:
  * @note 根据文件流，存储文本，统计单词出现次数，出现行号
  */
 TextQuery::TextQuery(ifstream &infile): 
-        ptext(make_shared<vector<string>>()), 
-        pword_line_set(make_shared<map<string, set<int>>>())
+        ptext(make_shared<vector<string>>())
 {
     string line;
-    int line_number = 0;                            // 记录当前读取行号
     // 按行读取文件流
     while(getline(infile, line))
     {
-        ++line_number;
         ptext->push_back(line);
         istringstream line_stream(line);
         string word;
+        int line_number = ptext->size();    // 记录当前读取行号
         while (line_stream >> word)
         {
-            (*pword_line_set)[word].insert(line_number);    //添加行号
-            ++word_number[word];                            //记录出现次数
+            auto &p = word_line[word];
+            // 判断之前是否添加过word
+            if (p)
+            {
+                // cout << "!p" << endl;
+                // 添加过的话，在set中插入新的行号
+                p->insert(line_number);
+            }
+            else
+            {
+                // 未添加过，先给指针申请空间，再插入行号
+                p = make_shared<set<size_type>>();
+                p->insert(line_number);
+            }
+            ++word_number[word];            //记录出现次数
         }
     }
 }
@@ -77,13 +89,14 @@ TextQuery::TextQuery(ifstream &infile):
  */
 QueryResult TextQuery::query(const string& s)
 {
+    auto none = make_shared<set<size_type>>();
     if (word_number.find(s) != word_number.end())
     {
-        return QueryResult(s, word_number[s], ptext, pword_line_set);
+        return QueryResult(s, word_number[s], ptext, word_line[s]);
     }
     else
     {
-        return QueryResult(s, 0, ptext, pword_line_set);
+        return QueryResult(s, 0, ptext, none);
     }
 }
 

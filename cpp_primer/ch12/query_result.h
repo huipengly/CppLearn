@@ -29,14 +29,15 @@ class QueryResult
 {
 public:
     friend ostream& print(ostream &os, QueryResult qr);
+    typedef vector<int>::size_type size_type;
     QueryResult() : times(0) {}
-    QueryResult(const string &w, const int &t, shared_ptr<vector<string>> pt, shared_ptr<map<string, set<int>>> pls) :
-                word(w), times(t), ptext(pt), pword_line_set(pls) {}
+    QueryResult(const string &w, const size_type &t, shared_ptr<vector<string>> pt, shared_ptr<set<size_type>> pls) :
+                word(w), times(t), ptext(pt), pword_line(pls) {}
 private:
     string word;                                            //!< 查询的单词
-    int times;                                              //!< 单词出现次数
+    size_type times;                                        //!< 单词出现次数
     shared_ptr<vector<string>> ptext;                       //!< 存储文本，一行为一个string
-    shared_ptr<map<string, set<int>>> pword_line_set;       //!< 存储单词，和单词所在的列
+    shared_ptr<set<size_type>> pword_line;                  //!< 存储单词所在的列
 };
 
 /**
@@ -52,7 +53,7 @@ ostream& print(ostream &os, QueryResult qr)
     if (qr.times > 0)
     {
         os << qr.word << " occurs " << qr.times << " times" << endl;                    // TODO：这个times需要判断单复数。
-        for (auto line : (*(qr.pword_line_set))[qr.word])                               // 指针解引用之后是map<string, set<int>>
+        for (auto line : *(qr.pword_line))                               // 指针解引用之后是map<string, set<int>>
         {
             os << "    (line " << line << ") " << (qr.ptext)->at(line - 1) << endl;     // 行从1开始，vector从0开始
         }
