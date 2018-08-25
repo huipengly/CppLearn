@@ -43,15 +43,31 @@ class QueryResult
 public:
     friend ostream& print(ostream &os, QueryResult qr);
     typedef vector<int>::size_type size_type;
-    QueryResult() : times(0) {}
-    QueryResult(const string &w, const size_type &t, shared_ptr<vector<string>> pt, shared_ptr<set<size_type>> pls) :
-                word(w), times(t), ptext(pt), pword_line(pls) {}
+    QueryResult(const string &w, const size_type &t, shared_ptr<vector<string>> pt, shared_ptr<set<size_type>> pls);
+    set<size_type>::iterator begin() { return pword_line->begin(); }    //!< @brief 返回单词所在行set的第一个元素迭代器
+    set<size_type>::iterator end() { return pword_line->end(); }        //!< @brief 返回单词所在行set的尾后迭代器
+    shared_ptr<vector<string>> get_file() { return ptext; }             //!< @brief 返回文本文件的指针
+    
 private:
     string word;                                            //!< 查询的单词
     size_type times;                                        //!< 单词出现次数
     shared_ptr<vector<string>> ptext;                       //!< 存储文本，一行为一个string
     shared_ptr<set<size_type>> pword_line;                  //!< 存储单词所在的列
 };
+
+/**
+ * @brief Construct a new Query Result object
+ * 
+ * @param w 单词
+ * @param t 出现次数
+ * @param pt 文本指针
+ * @param pls 单词所在行set的指针
+ */
+QueryResult::QueryResult(const string &w, const size_type &t, shared_ptr<vector<string>> pt, shared_ptr<set<size_type>> pls) :
+                        word(w), times(t), ptext(pt), pword_line(pls) 
+{
+    
+}
 
 /**
  * @brief 打印QueryResult
