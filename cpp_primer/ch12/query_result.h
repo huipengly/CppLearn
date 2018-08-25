@@ -22,6 +22,19 @@ using std::map;
 using std::set;
 
 /**
+ * @brief 根据个数，判断是否加复数
+ * 
+ * @param ctr 个数
+ * @param word 单词
+ * @param ending 单词负数词根
+ * @return string 处理后的单词
+ */
+string makr_plural(size_t ctr, const string &word, const string &ending)
+{
+    return (ctr > 1) ? word + ending : word;
+}
+
+/**
  * @brief 存储查询结果
  * 
  */
@@ -52,7 +65,7 @@ ostream& print(ostream &os, QueryResult qr)
     // 判断查询的单词是否出现过
     if (qr.times > 0)
     {
-        os << qr.word << " occurs " << qr.times << " times" << endl;                    // TODO：这个times需要判断单复数。
+        os << qr.word << " occurs " << qr.times << " " << makr_plural(qr.times, "time", "s") << endl;
         for (auto line : *(qr.pword_line))                               // 指针解引用之后是map<string, set<int>>
         {
             os << "    (line " << line << ") " << (qr.ptext)->at(line - 1) << endl;     // 行从1开始，vector从0开始
