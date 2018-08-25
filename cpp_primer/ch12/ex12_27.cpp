@@ -30,6 +30,13 @@ void runQueries(ifstream &infile)
     }
 }
 
+/**
+ * @brief 主函数
+ * 
+ * @param argc 
+ * @param argv 第二个参数为读取的文本名
+ * @return int 
+ */
 int main(int argc, char const *argv[])
 {
     ifstream input;

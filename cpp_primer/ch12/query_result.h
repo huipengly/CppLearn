@@ -1,5 +1,5 @@
 /**
- * @brief 练习12.27
+ * @brief 查询结果类
  * 
  * @file query_result.h
  * @author huipengly
@@ -21,10 +21,14 @@ using std::map;
 #include <set>
 using std::set;
 
+/**
+ * @brief 存储查询结果
+ * 
+ */
 class QueryResult
 {
 public:
-    friend ostream& print(ostream &os, QueryResult qr);     //!< 打印QueryResult
+    friend ostream& print(ostream &os, QueryResult qr);
     QueryResult() : times(0) {}
     QueryResult(const string &w, const int &t, shared_ptr<vector<string>> pt, shared_ptr<map<string, set<int>>> pls) :
                 word(w), times(t), ptext(pt), pword_line_set(pls) {}

@@ -1,5 +1,5 @@
 /**
- * @brief 练习12.27
+ * @brief 文本查询类
  * 
  * @file text_query.h
  * @author huipengly
@@ -26,6 +26,10 @@ using std::ifstream;
 #include <sstream>
 using std::istringstream;
 
+/**
+ * @brief 文本查询
+ * 
+ */
 class TextQuery
 {
 public:
