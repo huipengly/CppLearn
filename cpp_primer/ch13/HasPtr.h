@@ -11,7 +11,8 @@ public:
     { 
         delete ps;
         ps = hp.ps;
-        i = hp.i; 
+        i = hp.i;
+        return *this;
     }
     ~HasPtr() { delete ps; }                                                            //!< 析构函数
 private:
