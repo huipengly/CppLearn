@@ -27,6 +27,7 @@ public:
     std::string* begin() const { return elements; }
     std::string* end() const { return first_free; }
     ~StrVec() { free(); }
+    std::string& at(size_t pos) { return *(elements + pos); }
 
 private:
     static std::allocator<std::string> alloc;
