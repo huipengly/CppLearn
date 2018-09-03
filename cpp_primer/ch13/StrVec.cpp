@@ -6,6 +6,7 @@
  * @date 2018-09-03
  */
 #include "StrVec.h"
+#include <algorithm>
 
 std::allocator<std::string> StrVec::alloc;      // 为静态成员分配空间
 
@@ -50,12 +51,15 @@ void StrVec::free()
     // 不能free空指针
     if (elements)
     {
-        // 这里销毁要逆序销毁
-        for (auto p = first_free; p != elements; --p)
-        {
-            alloc.destroy(p);                   // 销毁每个内存中的string
-        }
-        alloc.deallocate(elements, capacity()); // 销毁分配的空间
+        // // 这里销毁要逆序销毁
+        // for (auto p = first_free; p != elements; --p)
+        // {
+        //     alloc.destroy(p);                   // 销毁每个内存中的string
+        // }
+        // alloc.deallocate(elements, capacity()); // 销毁分配的空间
+
+        // ex13.43 版本
+        std::for_each(elements, first_free, [](std::string &p){ alloc.destroy(&p); });  // std::string &p 这个必须是引用
     }
 }
 
