@@ -35,7 +35,7 @@ public:
 
     StrBlob():data(std::make_shared<vector<string>>()) { }
     StrBlob(std::initializer_list<string> il):data(std::make_shared<vector<string>>(il)) { }
-    StrBlob(const StrBlob&);
+    StrBlob(const StrBlob& s) : data(std::make_shared<vector<string>>(s.data)) {}
     StrBlob& operator=(const StrBlob&);
 
     size_type size() const { return data->size(); }
@@ -83,8 +83,7 @@ StrBlob::StrBlob(const StrBlob &s)
 
 StrBlob& StrBlob::operator=(const StrBlob &s)
 {
-    auto newd = std::make_shared<vector<string>>(data);
-    data = newd;
+    data = std::make_shared<vector<string>>(s.data);
     return *this;
 }
 
