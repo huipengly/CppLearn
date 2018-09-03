@@ -31,7 +31,8 @@ public:
 private:
     static std::allocator<std::string> alloc;
     std::pair<std::string*, std::string*> allocate_n_copy(const std::string *b, const std::string *e);
-                                                                //!< 为元素分配内存
+                                                                //!< 申请空间拷贝b到e的内存
+    void allocate_n_move(const size_t);                         //!< 为元素分配内存
     void free();                                                //!< 释放内存
     void chk_n_alloc()                                          //!< 检查空间是否够用
         {if (size() == capacity()) reallocate(); }
