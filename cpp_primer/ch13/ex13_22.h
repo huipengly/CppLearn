@@ -9,8 +9,9 @@ public:
     HasPtr(const HasPtr &hp) : ps(new std::string(*hp.ps)), i(hp.i) {}                  //!< 拷贝构造函数
     HasPtr& operator=(const HasPtr &hp)                                                 //!< 拷贝赋值函数
     { 
+        auto newp = new std::string(*hp.ps);    // 这里需要先拷贝临时副本，不然无法将对象赋予他自身
         delete ps;
-        ps = hp.ps;
+        ps = newp;
         i = hp.i;
         return *this;
     }
