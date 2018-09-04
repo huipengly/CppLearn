@@ -18,9 +18,12 @@ Sales_data operator+(const Sales_data &lhs, const Sales_data &rhs)
 
 istream &operator>>(istream &is, Sales_data &item)
 {
-    double price = 0;
+    double price;               // 不需要初始化
     is >> item.bookNo >> item.units_sold >> price;
-    item.revenue = item.units_sold * price;
+    if (is)                     // 检查输入是否成功
+        item.revenue = item.units_sold * price;
+    else
+        item = Sales_data();    // 失败赋予默认状态
     return is;
 }
 
