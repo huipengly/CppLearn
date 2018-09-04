@@ -2,9 +2,11 @@
 #define _STRING_H_
 #include <memory>
 #include <utility>
+#include <iostream>
 
 class String
 {
+    friend std::ostream &operator<<(std::ostream&, const String&);
 public:
     String() : elements(nullptr), first_free(nullptr), cap(nullptr) {}
     String(const char*);
@@ -34,5 +36,7 @@ private:
     // void chk_n_alloc()
     //     { if (size() == capacity()) reallocate();}
 };
+
+std::ostream &operator<<(std::ostream &os, const String &s);        // 必须在这个文件中声明这个函数，不能只有friend
 
 #endif
