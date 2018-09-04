@@ -74,9 +74,15 @@ std::pair<char*, char*> String::alloc_n_copy(const char *b, const char*e)
     return {data, std::uninitialized_copy(b, e, data)};
 }
 
+std::ostream &operator<<(std::ostream &os, const String &s)
+{
+    for (auto c : s)
+        os << c;
+    return os;
+}
+
 // int main(int argc, char const *argv[])
 // {
 //     /* code */
 //     return 0;
 // }
-
