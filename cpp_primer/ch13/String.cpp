@@ -22,6 +22,13 @@ String::String(const String &s)
     std::cout << "String::String(const String &s)" << std::endl;
 }
 
+String::String(String &&s) noexcept : elements(s.elements), first_free(s.first_free), cap(s.cap)
+{
+    s.elements = s.first_free = s.cap = nullptr;
+
+    std::cout << "String::String(String &&s)" << std::endl;
+}
+
 String& String::operator=(const char* c_str)
 {
     auto data = alloc_n_copy(c_str, c_str + strlen(c_str));
@@ -31,6 +38,8 @@ String& String::operator=(const char* c_str)
 
     
     std::cout << "String& String::operator=(const char* c_str)" << std::endl;
+
+    return *this;
 }
 
 String& String::operator=(const String &s)
@@ -42,6 +51,21 @@ String& String::operator=(const String &s)
 
     
     std::cout << "String& String::operator=(const String &s)" << std::endl;
+
+    return *this;
+}
+
+String& String::operator=(String &&s) noexcept
+{
+    elements = s.elements;
+    first_free = s.first_free;
+    cap = s.cap;
+
+    s.elements = s.first_free = s.cap = nullptr;
+
+    std::cout << "String& String::operator=(String &&s)" << std::endl;
+
+    return *this;
 }
 
 std::pair<char*, char*> String::alloc_n_copy(const char *b, const char*e)

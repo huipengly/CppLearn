@@ -9,8 +9,10 @@ public:
     String() : elements(nullptr), first_free(nullptr), cap(nullptr) {}
     String(const char*);
     String(const String&);
+    String(String&&) noexcept;
     ~String() { free(); }
     String& operator=(const String&);
+    String& operator=(String &&) noexcept;
     String& operator=(const char* c_str);
     // void reserve(size_t);
     // void resize(size_t);
