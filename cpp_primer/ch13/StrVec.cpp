@@ -7,6 +7,7 @@
  */
 #include "StrVec.h"
 #include <algorithm>
+#include <iterator>
 
 std::allocator<std::string> StrVec::alloc;      // 为静态成员分配空间
 
@@ -34,7 +35,7 @@ void StrVec::push_back(const std::string &s)
 }
 
 /**
- * @brief 
+ * @brief 将b到e内存的内容拷贝到新地址
  * 
  * @param b 
  * @param e 
@@ -44,6 +45,19 @@ std::pair<std::string*, std::string*> StrVec::allocate_n_copy(const std::string 
 {
     auto data = alloc.allocate(e - b);
     return {data, std::uninitialized_copy(b, e, data)};
+}
+
+/**
+ * @brief 将b到e内存的内容移动到新地址
+ * 
+ * @param b 
+ * @param e 
+ * @return std::pair<std::string*, std::string*> 
+ */
+std::pair<std::string*, std::string*> StrVec::allocate_n_move(const std::string *b, const std::string *e)
+{
+    auto data = alloc.allocate(e - b);
+    return {data, std::uninitialized_copy(std::make_move_iterator(b), std::make_move_iterator(e), data)};
 }
 
 void StrVec::free()
@@ -76,15 +90,42 @@ StrVec::StrVec(const StrVec &s)
 }
 
 /**
+ * @brief 移动构造函数
+ * 
+ * @param s 右值
+ */
+StrVec::StrVec(const StrVec &&s) noexcept
+{
+    auto new_data = allocate_n_move(s.begin(), s.end());
+    elements = new_data.first;
+    first_free = cap = new_data.second;
+}
+
+/**
  * @brief 拷贝赋值函数
  * 
- * @param rhs 拷贝用的右值
- * @return StrVec& 拷贝的左值
+ * @param rhs 左值，赋值等号右侧
+ * @return StrVec& 左值，赋值等号左侧
  */
 StrVec& StrVec::operator=(const StrVec& rhs)
 {
     auto new_data = allocate_n_copy(rhs.begin(), rhs.end());
     free();                             // 与拷贝构造函数不同，这里要先free
+    elements = new_data.first;
+    first_free = cap = new_data.second;
+    return *this;
+}
+
+/**
+ * @brief 移动赋值函数
+ * 
+ * @param rhs 右值，赋值等号右侧
+ * @return StrVec& 左值，赋值等号左侧
+ */
+StrVec& StrVec::operator=(const StrVec &&rhs) noexcept
+{
+    auto new_data = allocate_n_move(rhs.begin(), rhs.end());
+    free();
     elements = new_data.first;
     first_free = cap = new_data.second;
     return *this;

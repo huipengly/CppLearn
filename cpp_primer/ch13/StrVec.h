@@ -19,7 +19,9 @@ public:
     StrVec() : elements(nullptr), first_free(nullptr), cap(nullptr) {}
     StrVec(std::initializer_list<std::string> &);
     StrVec(const StrVec&);
+    StrVec(const StrVec&&) noexcept;
     StrVec& operator=(const StrVec&);
+    StrVec& operator=(const StrVec&&) noexcept;
     void push_back(const std::string&);
     size_t size() const { return first_free - elements; }
     size_t capacity() const { return cap - elements; }
@@ -34,6 +36,7 @@ private:
     static std::allocator<std::string> alloc;
     std::pair<std::string*, std::string*> allocate_n_copy(const std::string *b, const std::string *e);
                                                                 //!< 申请空间拷贝b到e的内存
+    std::pair<std::string*, std::string*> allocate_n_move(const std::string *b, const std::string *e);                                                                
     void allocate_n_move(const size_t);                         //!< 为元素分配内存
     void free();                                                //!< 释放内存
     void chk_n_alloc()                                          //!< 检查空间是否够用
