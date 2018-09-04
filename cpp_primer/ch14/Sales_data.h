@@ -21,7 +21,7 @@ public:
                 bookNo(s), units_sold(n), revenue(p * n) { cout << "Sales_data(const string &s, const unsigned &n, const double &p)\n"; }
     Sales_data() : Sales_data("", 0, 0) { cout << "Sales_data()\n"; }
     Sales_data(const string& s) : Sales_data(s, 0, 0) { cout << "Sales_data(const string& s)\n"; }
-    Sales_data(istream& is) : Sales_data() { cout << "Sales_data(istream& is)\n"; read(is, *this); }
+    Sales_data(istream& is) : Sales_data() { cout << "Sales_data(istream& is)\n"; is >> *this; }
 
     string isbn() const { return bookNo; }
     Sales_data& operator+=(const Sales_data&);
