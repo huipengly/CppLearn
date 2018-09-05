@@ -104,22 +104,17 @@ bool operator!=(const String &lhs, const String &rhs)
 
 bool operator<(const String &lhs, const String &rhs)
 {
-    if (lhs.size() >= rhs.size())
+    auto small_size = lhs.size() < rhs.size() ? lhs.size() : rhs.size();
+    // 两边最小的长度以内若有不同字符，则返回字符比较结果
+    for (auto i = 0; i != small_size; ++i)
     {
-        return false;
-    }
-    for (auto i = lhs.size(); i != lhs.size(); ++i)
-    {
-        if (*(lhs.elements + i) == *(rhs.elements + i))
+        if (*(lhs.elements + i) != *(rhs.elements + i))
         {
-            continue;
-        }
-        else if (*(lhs.elements + i) >= *(rhs.elements + i))
-        {
-            return false;
+            return *(lhs.elements + i) < *(rhs.elements + i);
         }
     }
-    return true;
+    // 两边最小的长度之内相同，则比较字符串长度
+    return lhs.size() < rhs.size();
 }
 
 bool operator<=(const String &lhs, const String &rhs)
