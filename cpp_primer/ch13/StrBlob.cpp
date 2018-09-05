@@ -88,6 +88,20 @@ bool operator>=(const StrBlobPtr &lhs, const StrBlobPtr &rhs)
     return !(lhs < rhs);
 }
 
+StrBlobPtr operator+(StrBlobPtr &lhs, size_t rhs)
+{
+    lhs.curr += rhs;
+    lhs.check(lhs.curr, "increment past end of StrBlobPtr");
+    return lhs;
+}
+
+StrBlobPtr operator-(StrBlobPtr &lhs, size_t rhs)
+{
+    lhs.curr -= rhs;
+    lhs.check(lhs.curr, "decrement past first of StrBlobPtr");
+    return lhs;
+}
+
 bool operator==(const ConstStrBlobPtr &lhs, const ConstStrBlobPtr &rhs)
 {
     // return (lhs.curr == rhs.curr) && (lhs.wptr.lock() == rhs.wptr.lock());
@@ -102,4 +116,19 @@ bool operator!=(const ConstStrBlobPtr &lhs, const ConstStrBlobPtr &rhs)
 bool operator<(const ConstStrBlobPtr &lhs, const ConstStrBlobPtr &rhs)
 {
     return lhs.curr < rhs.curr;
+}
+
+bool operator<=(const ConstStrBlobPtr &lhs, const ConstStrBlobPtr &rhs)
+{
+    return !(rhs < lhs);
+}
+
+bool operator>(const ConstStrBlobPtr &lhs, const ConstStrBlobPtr &rhs)
+{
+    return rhs < lhs;
+}
+
+bool operator>=(const ConstStrBlobPtr &lhs, const ConstStrBlobPtr &rhs)
+{
+    return !(lhs < rhs);
 }

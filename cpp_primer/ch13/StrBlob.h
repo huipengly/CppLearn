@@ -71,6 +71,9 @@ public:
         return data->back();
     }
 
+    std::string& operator[](size_t pos) { return (*data)[pos]; }
+    const std::string& operator[](size_t pos) const { return (*data)[pos]; }
+
 private:
     void check(size_type i, const string &msg) const {
         if (i >= data->size()) throw std::out_of_range(msg);
@@ -80,6 +83,13 @@ private:
     std::shared_ptr<vector<string>> data;
 };
 
+bool operator==(const StrBlob &, const StrBlob &);
+bool operator!=(const StrBlob &, const StrBlob &);
+bool operator<(const StrBlob &, const StrBlob &);
+bool operator<=(const StrBlob &, const StrBlob &);
+bool operator>(const StrBlob &, const StrBlob &);
+bool operator>=(const StrBlob &, const StrBlob &);
+
 class StrBlobPtr {
     friend bool operator==(const StrBlobPtr &, const StrBlobPtr &);
     friend bool operator!=(const StrBlobPtr &, const StrBlobPtr &);
@@ -87,20 +97,45 @@ class StrBlobPtr {
     friend bool operator<=(const StrBlobPtr &, const StrBlobPtr &);
     friend bool operator>(const StrBlobPtr &, const StrBlobPtr &);
     friend bool operator>=(const StrBlobPtr &, const StrBlobPtr &);
+    friend StrBlobPtr operator+(StrBlobPtr &, size_t);
+    friend StrBlobPtr operator-(StrBlobPtr &, size_t);
 public:
     StrBlobPtr():curr(0) { }
     StrBlobPtr(StrBlob &a, size_t sz = 0):wptr(a.data), curr(sz) { }
     bool operator!=(const StrBlobPtr& p) { return p.curr != curr; }
-    string& deref() const {
+    string& operator*() const {
         auto p = check(curr, "dereference past end");
         return (*p)[curr];
     }
-    StrBlobPtr& incr() {
+    string* operator->() const
+    {
+        return & this->operator*();
+    }
+    StrBlobPtr& operator++() {
         check(curr, "increment past end of StrBlobPtr");
         ++curr;
         return *this;
     }
-
+    StrBlobPtr operator++(int)  // ????????????????
+    {
+        auto ret = *this;
+        ++*this;
+        return ret;
+    }
+    StrBlobPtr& operator--() {
+        --curr;
+        check(curr, "decrement past first of StrBlobPtr");
+        return *this;
+    }
+    StrBlobPtr operator--(int)
+    {
+        auto ret = *this;
+        --*this;
+        return ret;
+    }
+    char& operator[](size_t pos) { return (*wptr.lock())[curr][pos]; }
+    const char& operator[](size_t pos) const { return (*wptr.lock())[curr][pos]; }
+    
 private:
     std::shared_ptr<vector<string>> check(size_t i, const string &msg) const {
         auto ret = wptr.lock();
@@ -111,25 +146,59 @@ private:
     std::weak_ptr<vector<string>> wptr;
     size_t curr;
 };
+
+bool operator==(const StrBlobPtr &, const StrBlobPtr &);
+bool operator!=(const StrBlobPtr &, const StrBlobPtr &);
+bool operator<(const StrBlobPtr &, const StrBlobPtr &);
+bool operator<=(const StrBlobPtr &, const StrBlobPtr &);
+bool operator>(const StrBlobPtr &, const StrBlobPtr &);
+bool operator>=(const StrBlobPtr &, const StrBlobPtr &);
+StrBlobPtr operator+(StrBlobPtr &, size_t);
+StrBlobPtr operator-(StrBlobPtr &, size_t);
 
 class ConstStrBlobPtr
 {
     friend bool operator==(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
     friend bool operator!=(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
     friend bool operator<(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
+    friend bool operator<=(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
+    friend bool operator>(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
+    friend bool operator>=(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
+    friend bool operator+(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
+    friend bool operator-(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
 public:
     ConstStrBlobPtr():curr(0) { }
     ConstStrBlobPtr(const StrBlob &a, size_t sz = 0):wptr(a.data), curr(sz) { }
     bool operator!=(const ConstStrBlobPtr& p) { return p.curr != curr; }
-    const string& deref() const {
+    const string& operator*() const {
         auto p = check(curr, "dereference past end");
         return (*p)[curr];
     }
-    ConstStrBlobPtr& incr() {
+    const string* operator->() const
+    {
+        return & this->operator*();
+    }
+    ConstStrBlobPtr& operator++() {
         check(curr, "increment past end of StrBlobPtr");
         ++curr;
         return *this;
     }
+    ConstStrBlobPtr operator++(int) {
+        auto ret = *this;
+        ++*this;
+        return *this;
+    }
+    ConstStrBlobPtr& operator--() {
+        --curr;
+        check(curr, "decrement past first of StrBlobPtr");
+        return *this;
+    }
+    ConstStrBlobPtr operator--(int) {
+        auto ret = *this;
+        --*this;
+        return *this;
+    }
+    const char& operator[](size_t pos) const { return (*wptr.lock())[curr][pos]; }
 
 private:
     std::shared_ptr<vector<string>> check(size_t i, const string &msg) const {
@@ -141,5 +210,13 @@ private:
     std::weak_ptr<vector<string>> wptr;
     size_t curr;
 };
+bool operator==(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
+bool operator!=(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
+bool operator<(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
+bool operator<=(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
+bool operator>(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
+bool operator>=(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
+bool operator+(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
+bool operator-(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
 
 #endif
