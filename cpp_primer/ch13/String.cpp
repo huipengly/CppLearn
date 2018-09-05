@@ -89,7 +89,7 @@ bool operator==(const String &lhs, const String &rhs)
     }
     for (auto i = lhs.size(); i != lhs.size(); ++i)
     {
-        if (*(lhs.begin() + i) != *(rhs.begin() + i))
+        if (*(lhs.elements + i) != *(rhs.elements + i))
         {
             return false;
         }
