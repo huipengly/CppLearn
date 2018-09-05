@@ -9,7 +9,7 @@ public:
     string operator()()
     { 
         string str;
-        is_ >> str;
+        getline(is_, str);
         return str;
     }
 private:
