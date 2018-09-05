@@ -14,6 +14,8 @@
 
 class StrVec
 {
+    friend bool operator==(const StrVec&, const StrVec&);
+    friend bool operator!=(const StrVec&, const StrVec&);
 public:
     // @brief 默认初始化
     StrVec() : elements(nullptr), first_free(nullptr), cap(nullptr) {}
@@ -47,5 +49,8 @@ private:
     std::string *first_free;                                    //!< 最后一个实际元素之后，分配内存中第一个空闲元素
     std::string *cap;                                           //!< 分配的内存末尾之后的元素
 };
+
+bool operator==(const StrVec&, const StrVec&);
+bool operator!=(const StrVec&, const StrVec&);
 
 #endif

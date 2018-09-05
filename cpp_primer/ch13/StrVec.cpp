@@ -195,6 +195,43 @@ void StrVec::resize(size_t sz, const std::string &s = "")
     }
 }
 
+/**
+ * @brief 判断两个StrVec是否相等
+ * 
+ * @param lhs 
+ * @param rhs 
+ * @return true 相等
+ * @return false 不相等
+ */
+bool operator==(const StrVec &lhs, const StrVec &rhs)
+{
+    if (lhs.size() != rhs.size())
+    {
+        return false;
+    }
+    for (auto i = 0; i != lhs.size(); ++i)
+    {
+        if (*(lhs.elements + i) != *(rhs.elements + i))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * @brief 判断两个StrVec是否不相等
+ * 
+ * @param lhs 
+ * @param rhs 
+ * @return true 不相等
+ * @return false 相等
+ */
+bool operator!=(const StrVec &lhs, const StrVec &rhs)
+{
+    return !(lhs == rhs);
+}
+
 // int main(int argc, char const *argv[])
 // {
 //     return 0;
