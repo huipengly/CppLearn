@@ -47,7 +47,9 @@ std::ostream &operator<<(std::ostream &os, const Sales_data &item)
 
 Sales_data Sales_data::operator=(const std::string &s)
 {
-    bookNo = s;
-    units_sold = 0;
-    revenue = 0.0;
+    // bookNo = s;
+    // units_sold = 0;
+    // revenue = 0.0;
+    *this = Sales_data(s);
+    return *this;           // 记得return！
 }
