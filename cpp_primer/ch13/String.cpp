@@ -81,6 +81,27 @@ std::ostream &operator<<(std::ostream &os, const String &s)
     return os;
 }
 
+bool operator==(const String &lhs, const String &rhs)
+{
+    if (lhs.size() != rhs.size())
+    {
+        return false;
+    }
+    for (auto i = lhs.size(); i != lhs.size(); ++i)
+    {
+        if (*(lhs.begin() + i) != *(rhs.begin() + i))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool operator!=(const String &lhs, const String &rhs)
+{
+    return !(lhs == rhs);
+}
+
 // int main(int argc, char const *argv[])
 // {
 //     /* code */
