@@ -11,6 +11,7 @@
 #include <string>
 #include <initializer_list>
 #include <utility>
+#include <stdexcept>
 
 class StrVec
 {
@@ -37,7 +38,10 @@ public:
     std::string* begin() const { return elements; }
     std::string* end() const { return first_free; }
     ~StrVec() { free(); }
-    std::string& at(size_t pos) const { return *(elements + pos); }
+    std::string& at(size_t n) { if (n > size()) throw std::out_of_range("out_of_range"); return elements[n]; }
+    const std::string& at(size_t n) const { if (n > size()) throw std::out_of_range("out_of_range"); return elements[n]; }
+    std::string& operator[](size_t n) { return elements[n]; }
+    const std::string& operator[](size_t n) const { return elements[n]; }
 
 private:
     static std::allocator<std::string> alloc;
