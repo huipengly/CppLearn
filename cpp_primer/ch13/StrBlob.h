@@ -25,6 +25,10 @@ class ConstStrBlobPtr;
 class StrBlob {
     friend bool operator==(const StrBlob &, const StrBlob &);
     friend bool operator!=(const StrBlob &, const StrBlob &);
+    friend bool operator<(const StrBlob &, const StrBlob &);
+    friend bool operator<=(const StrBlob &, const StrBlob &);
+    friend bool operator>(const StrBlob &, const StrBlob &);
+    friend bool operator>=(const StrBlob &, const StrBlob &);
 public:
     using size_type = vector<string>::size_type;
     friend class StrBlobPtr;
@@ -79,6 +83,10 @@ private:
 class StrBlobPtr {
     friend bool operator==(const StrBlobPtr &, const StrBlobPtr &);
     friend bool operator!=(const StrBlobPtr &, const StrBlobPtr &);
+    friend bool operator<(const StrBlobPtr &, const StrBlobPtr &);
+    friend bool operator<=(const StrBlobPtr &, const StrBlobPtr &);
+    friend bool operator>(const StrBlobPtr &, const StrBlobPtr &);
+    friend bool operator>=(const StrBlobPtr &, const StrBlobPtr &);
 public:
     StrBlobPtr():curr(0) { }
     StrBlobPtr(StrBlob &a, size_t sz = 0):wptr(a.data), curr(sz) { }
@@ -108,6 +116,7 @@ class ConstStrBlobPtr
 {
     friend bool operator==(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
     friend bool operator!=(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
+    friend bool operator<(const ConstStrBlobPtr &, const ConstStrBlobPtr &);
 public:
     ConstStrBlobPtr():curr(0) { }
     ConstStrBlobPtr(const StrBlob &a, size_t sz = 0):wptr(a.data), curr(sz) { }
@@ -132,60 +141,5 @@ private:
     std::weak_ptr<vector<string>> wptr;
     size_t curr;
 };
-
-StrBlobPtr StrBlob::begin()
-{
-    return StrBlobPtr(*this);
-}
-
-StrBlobPtr StrBlob::end()
-{
-    return StrBlobPtr(*this, data->size());
-}
-
-ConstStrBlobPtr StrBlob::begin() const
-{
-    return ConstStrBlobPtr(*this);
-}
-
-ConstStrBlobPtr StrBlob::end() const
-{
-    return ConstStrBlobPtr(*this, data->size());
-}
-
-bool operator==(const StrBlob &lhs, const StrBlob &rhs)
-{
-    // ?????????????????
-    // if (lhs.size() != rhs.size())
-    // {
-    //     return false;
-    // }
-    return lhs.data == rhs.data;
-}
-
-bool operator!=(const StrBlob &lhs, const StrBlob &rhs)
-{
-    return !(lhs == rhs);
-}
-
-bool operator==(const StrBlobPtr &lhs, const StrBlobPtr &rhs)
-{
-    return (lhs.curr == rhs.curr) && (lhs.wptr.lock() == rhs.wptr.lock());
-}
-
-bool operator!=(const StrBlobPtr &lhs, const StrBlobPtr &rhs)
-{
-    return !(lhs == rhs);
-}
-
-bool operator==(const ConstStrBlobPtr &lhs, const ConstStrBlobPtr &rhs)
-{
-    return (lhs.curr == rhs.curr) && (lhs.wptr.lock() == rhs.wptr.lock());
-}
-
-bool operator!=(const ConstStrBlobPtr &lhs, const ConstStrBlobPtr &rhs)
-{
-    return !(lhs == rhs);
-}
 
 #endif
