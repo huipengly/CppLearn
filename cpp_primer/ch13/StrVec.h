@@ -23,11 +23,12 @@ class StrVec
 public:
     // @brief 默认初始化
     StrVec() : elements(nullptr), first_free(nullptr), cap(nullptr) {}
-    StrVec(std::initializer_list<std::string> &);
+    StrVec(std::initializer_list<std::string>);
     StrVec(const StrVec&);
     StrVec(const StrVec&&) noexcept;
     StrVec& operator=(const StrVec&);
     StrVec& operator=(const StrVec&&) noexcept;
+    StrVec& operator=(std::initializer_list<std::string>);
     void push_back(const std::string&);
     size_t size() const { return first_free - elements; }
     size_t capacity() const { return cap - elements; }

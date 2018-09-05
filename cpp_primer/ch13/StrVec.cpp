@@ -16,9 +16,9 @@ std::allocator<std::string> StrVec::alloc;      // 为静态成员分配空间
  * 
  * @param l 初始化列表
  */
-StrVec::StrVec(std::initializer_list<std::string> &l)
+StrVec::StrVec(std::initializer_list<std::string> li)
 {
-    auto new_data = allocate_n_copy(l.begin(), l.end());
+    auto new_data = allocate_n_copy(li.begin(), li.end());
     elements = new_data.first;
     first_free = cap = new_data.second;
 }
@@ -111,6 +111,20 @@ StrVec& StrVec::operator=(const StrVec& rhs)
 {
     auto new_data = allocate_n_copy(rhs.begin(), rhs.end());
     free();                             // 与拷贝构造函数不同，这里要先free
+    elements = new_data.first;
+    first_free = cap = new_data.second;
+    return *this;
+}
+
+/**
+ * @brief 使用初始化列表的赋值
+ * 
+ * @param il 初始化列表
+ * @return StrVec& 
+ */
+StrVec& StrVec::operator=(std::initializer_list<std::string> il)
+{
+    auto new_data = allocate_n_copy(il.begin(), il.end());
     elements = new_data.first;
     first_free = cap = new_data.second;
     return *this;
