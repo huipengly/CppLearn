@@ -29,6 +29,8 @@ public:
     char* begin() const { return elements; }
     char* end() const {return first_free; }
     void free() { delete elements; }
+    char& operator[](size_t n) { return elements[n]; }
+    const char& operator[](size_t n) const { return elements[n]; }
 
 private:
     char *elements;
