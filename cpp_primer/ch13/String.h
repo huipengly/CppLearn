@@ -9,6 +9,10 @@ class String
     friend std::ostream &operator<<(std::ostream&, const String&);
     friend bool operator==(const String&, const String&);
     friend bool operator!=(const String&, const String&);
+    friend bool operator<(const String &, const String &);
+    friend bool operator<=(const String &, const String &);
+    friend bool operator>(const String &, const String &);
+    friend bool operator>=(const String &, const String &);
 public:
     String() : elements(nullptr), first_free(nullptr), cap(nullptr) {}
     String(const char*);
@@ -42,5 +46,9 @@ private:
 std::ostream &operator<<(std::ostream &os, const String &s);        // 必须在这个文件中声明这个函数，不能只有friend
 bool operator==(const String&, const String&);
 bool operator!=(const String&, const String&);
+bool operator<(const String &, const String &);
+bool operator<=(const String &, const String &);
+bool operator>(const String &, const String &);
+bool operator>=(const String &, const String &);
 
 #endif

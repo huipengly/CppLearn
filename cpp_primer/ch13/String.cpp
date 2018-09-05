@@ -102,6 +102,41 @@ bool operator!=(const String &lhs, const String &rhs)
     return !(lhs == rhs);
 }
 
+bool operator<(const String &lhs, const String &rhs)
+{
+    if (lhs.size() >= rhs.size())
+    {
+        return false;
+    }
+    for (auto i = lhs.size(); i != lhs.size(); ++i)
+    {
+        if (*(lhs.elements + i) == *(rhs.elements + i))
+        {
+            continue;
+        }
+        else if (*(lhs.elements + i) >= *(rhs.elements + i))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool operator<=(const String &lhs, const String &rhs)
+{
+    return !(rhs < lhs);
+}
+
+bool operator>(const String &lhs, const String &rhs)
+{
+    return rhs < lhs;
+}
+
+bool operator>=(const String &lhs, const String &rhs)
+{
+    return !(lhs < rhs);
+}
+
 // int main(int argc, char const *argv[])
 // {
 //     /* code */
