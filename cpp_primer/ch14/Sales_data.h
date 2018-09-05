@@ -26,6 +26,7 @@ public:
     std::string isbn() const { return bookNo; }
     Sales_data& operator+=(const Sales_data&);
     Sales_data& operator-=(const Sales_data&);
+    Sales_data operator=(const std::string&);
 
 private:
     double avg_price() const { return revenue / units_sold; }

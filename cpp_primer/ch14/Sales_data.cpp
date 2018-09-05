@@ -45,3 +45,9 @@ std::ostream &operator<<(std::ostream &os, const Sales_data &item)
     return os;
 }
 
+Sales_data Sales_data::operator=(const std::string &s)
+{
+    bookNo = s;
+    units_sold = 0;
+    revenue = 0.0;
+}
