@@ -16,6 +16,10 @@ class StrVec
 {
     friend bool operator==(const StrVec&, const StrVec&);
     friend bool operator!=(const StrVec&, const StrVec&);
+    friend bool operator<(const StrVec&, const StrVec&);
+    friend bool operator<=(const StrVec&, const StrVec&);
+    friend bool operator>(const StrVec&, const StrVec&);
+    friend bool operator>=(const StrVec&, const StrVec&);
 public:
     // @brief 默认初始化
     StrVec() : elements(nullptr), first_free(nullptr), cap(nullptr) {}
@@ -32,7 +36,7 @@ public:
     std::string* begin() const { return elements; }
     std::string* end() const { return first_free; }
     ~StrVec() { free(); }
-    std::string& at(size_t pos) { return *(elements + pos); }
+    std::string& at(size_t pos) const { return *(elements + pos); }
 
 private:
     static std::allocator<std::string> alloc;
@@ -52,5 +56,9 @@ private:
 
 bool operator==(const StrVec&, const StrVec&);
 bool operator!=(const StrVec&, const StrVec&);
+bool operator<(const StrVec&, const StrVec&);
+bool operator<=(const StrVec&, const StrVec&);
+bool operator>(const StrVec&, const StrVec&);
+bool operator>=(const StrVec&, const StrVec&);
 
 #endif

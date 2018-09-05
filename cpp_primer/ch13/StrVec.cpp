@@ -232,6 +232,66 @@ bool operator!=(const StrVec &lhs, const StrVec &rhs)
     return !(lhs == rhs);
 }
 
+/**
+ * @brief 判断小于
+ * 
+ * @param lhs 
+ * @param rhs 
+ * @return true lhs < rhs
+ * @return false lhs >= rhs
+ */
+bool operator<(const StrVec &lhs, const StrVec &rhs)
+{
+    auto small_size = lhs.size() < rhs.size() ? lhs.size() : rhs.size();
+    for (auto i = 0; i != small_size; ++i)
+    {
+        if (lhs.at(i) != rhs.at(i))
+        {
+            return lhs.at(i) < rhs.at(i);
+        }
+    }
+    return lhs.size() < rhs.size();
+}
+
+/**
+ * @brief 判断小于等于
+ * 
+ * @param lhs 
+ * @param rhs 
+ * @return true lhs <= rhs
+ * @return false lhs > rhs
+ */
+bool operator<=(const StrVec &lhs, const StrVec &rhs)
+{
+    return !(rhs < lhs);
+}
+
+/**
+ * @brief 判断大于
+ * 
+ * @param lhs 
+ * @param rhs 
+ * @return true lhs > rhs
+ * @return false lhs <= rhs
+ */
+bool operator>(const StrVec &lhs, const StrVec &rhs)
+{
+    return rhs < lhs;
+}
+
+/**
+ * @brief 判断大于等于
+ * 
+ * @param lhs 
+ * @param rhs 
+ * @return true lhs >= rhs
+ * @return false lhs < rhs
+ */
+bool operator>=(const StrVec &lhs, const StrVec &rhs)
+{
+    return !(lhs < rhs);
+}
+
 // int main(int argc, char const *argv[])
 // {
 //     return 0;
