@@ -1,7 +1,5 @@
 #include "Sales_data.h"
 
-using std::endl;
-
 Sales_data& Sales_data::operator+=(const Sales_data &rhs)
 {
     units_sold += rhs.units_sold;
@@ -16,7 +14,21 @@ Sales_data operator+(const Sales_data &lhs, const Sales_data &rhs)
     return sum;
 }
 
-istream &operator>>(istream &is, Sales_data &item)
+Sales_data& Sales_data::operator-=(const Sales_data &rhs)
+{
+    units_sold -= rhs.units_sold;
+    revenue -= rhs.revenue;
+    return *this;
+}
+
+Sales_data operator-(const Sales_data &lhs, const Sales_data &rhs)
+{
+    Sales_data minus(lhs);
+    minus -= rhs;
+    return minus;
+}
+
+std::istream &operator>>(std::istream &is, Sales_data &item)
 {
     double price;               // 不需要初始化
     is >> item.bookNo >> item.units_sold >> price;
@@ -27,8 +39,9 @@ istream &operator>>(istream &is, Sales_data &item)
     return is;
 }
 
-ostream &operator<<(ostream &os, const Sales_data &item)
+std::ostream &operator<<(std::ostream &os, const Sales_data &item)
 {
     os << item.isbn() << " " << item.units_sold << " " << item.revenue << " " << item.avg_price();
     return os;
 }
+
