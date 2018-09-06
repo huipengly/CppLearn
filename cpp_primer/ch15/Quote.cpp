@@ -9,7 +9,7 @@ void Quote::debug()
 
 double BulkQuote::net_price(size_t n) const
 {
-    auto one_price = n > min_qty ? price * (1 - discount) : price;
+    auto one_price = n > quantity ? price * (1 - discount) : price;
     return n * one_price;
 }
 
@@ -17,7 +17,7 @@ void BulkQuote::debug()
 {
     std::cout << "bookNo = " << isbn() << std::endl;
     std::cout << "price = " << price << std::endl;
-    std::cout << "min_qty = " << min_qty << std::endl;
+    std::cout << "min_qty = " << quantity << std::endl;
     std::cout << "discount = " << discount << std::endl;
 }
 
@@ -25,13 +25,13 @@ void BulkQuote::debug()
 double LimitQuote::net_price(size_t n) const
 {
     double ret = 0;
-    if (n < max_qty)
+    if (n < quantity)
     {
         ret = n * price * (1 - discount);
     }
-    else if (n >= max_qty)
+    else if (n >= quantity)
     {
-        ret = max_qty * price * (1 - discount) + (n - max_qty) * price;
+        ret = quantity * price * (1 - discount) + (n - quantity) * price;
     }
     return ret;
 }
@@ -40,6 +40,6 @@ void LimitQuote::debug()
 {
     std::cout << "bookNo = " << isbn() << std::endl;
     std::cout << "price = " << price << std::endl;
-    std::cout << "max_qty = " << max_qty << std::endl;
+    std::cout << "max_qty = " << quantity << std::endl;
     std::cout << "discount = " << discount << std::endl;
 }
