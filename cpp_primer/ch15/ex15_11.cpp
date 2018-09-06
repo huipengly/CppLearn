@@ -19,5 +19,8 @@ int main()
     print_total(cout, bq, 4);
     print_total(cout, lq, 1);
     print_total(cout, lq, 4);
+    q.debug();
+    bq.debug();
+    lq.debug();
     return 0;
 }

@@ -16,6 +16,7 @@ public:
     Quote(const std::string &s, double p) : bookNo(s), price(p) {}
     std::string isbn() const { return bookNo; }
     virtual double net_price(size_t sz) const { return price * sz; }
+    virtual void debug();
 private:
     std::string bookNo;
 protected:
@@ -28,6 +29,7 @@ public:
     BulkQuote(const std::string &book, double sales_price, size_t qty, double disc) :
         Quote(book, sales_price), min_qty(qty), discount(disc) {}
     double net_price(size_t) const override;
+    void debug() override;
 private:
     size_t min_qty = 0;
     double discount = 0.0;
@@ -39,8 +41,9 @@ public:
     LimitQuote(const std::string &book, double sales_price, size_t qty, double disc) :
         Quote(book, sales_price), max_qty(qty), discount(disc) {}
     double net_price(size_t) const override;
+    void debug() override;
 private:
-    size_t max_qty = 0;             //!< ??????
+    size_t max_qty = 0;             //!< 优惠限制数量
     double discount = 0.0;
 };
 
