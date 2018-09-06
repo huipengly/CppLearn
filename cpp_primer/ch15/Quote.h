@@ -19,7 +19,24 @@ public:
 private:
     std::string bookNo;
 protected:
-    double price;
+    double price = 0.0;
 };
+
+class BulkQuote : public Quote
+{
+public:
+    BulkQuote(const std::string &book, double sales_price, size_t qty, double disc) :
+        Quote(book, sales_price), min_qty(qty), discount(disc) {}
+    double net_price(size_t) const override;
+private:
+    size_t min_qty = 0;
+    double discount = 0.0;
+};
+
+double BulkQuote::net_price(size_t n) const
+{
+    auto one_price = n > min_qty ? price * (1 - discount) : price;
+    return n * one_price;
+}
 
 #endif

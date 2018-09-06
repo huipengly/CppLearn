@@ -11,7 +11,10 @@ double print_total(ostream &os, Quote &item, size_t n)
 
 int main()
 {
-    Quote q("1234", 20);
+    Quote q("978-7-121-15535-2", 20);
+    BulkQuote bq("978-7-121-15535-2", 20, 3, 0.2);
     print_total(cout, q, 2);
+    print_total(cout, bq, 2);
+    print_total(cout, bq, 4);
     return 0;
 }
