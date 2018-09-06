@@ -33,10 +33,15 @@ private:
     double discount = 0.0;
 };
 
-double BulkQuote::net_price(size_t n) const
+class LimitQuote : public Quote
 {
-    auto one_price = n > min_qty ? price * (1 - discount) : price;
-    return n * one_price;
-}
+public:
+    LimitQuote(const std::string &book, double sales_price, size_t qty, double disc) :
+        Quote(book, sales_price), max_qty(qty), discount(disc) {}
+    double net_price(size_t) const override;
+private:
+    size_t max_qty = 0;             //!< ??????
+    double discount = 0.0;
+};
 
 #endif
