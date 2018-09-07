@@ -25,6 +25,8 @@ public:
     virtual double net_price(std::size_t sz) const { return price * sz; }
     virtual void debug();
     virtual ~Quote() = default;
+    virtual Quote *clone() const & { return new Quote(*this);}
+    virtual Quote *clone() && { return new Quote(std::move(*this)); }
 private:
     std::string bookNo;
 protected:
@@ -71,6 +73,8 @@ public:
     BulkQuote &operator=(BulkQuote &&);
     double net_price(std::size_t) const override;
     void debug() override;
+    BulkQuote *clone() const & override { return new BulkQuote(*this); } 
+    BulkQuote *clone() && override { return new BulkQuote(std::move(*this)); }
 };
 
 class LimitQuote : public DiscQuote
@@ -88,6 +92,10 @@ public:
     LimitQuote &operator=(LimitQuote &&);
     double net_price(std::size_t) const override;
     void debug() override;
+    LimitQuote *clone() const & override { return new LimitQuote(*this); } 
+    LimitQuote *clone() && override { return new LimitQuote(std::move(*this)); }
 };
+
+double print_total(std::ostream &, Quote &, std::size_t);
 
 #endif

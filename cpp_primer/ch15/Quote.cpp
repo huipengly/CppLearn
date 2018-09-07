@@ -55,7 +55,7 @@ BulkQuote &BulkQuote::operator=(BulkQuote &&rhs)
     return *this;
 }
 
-double BulkQuote::net_price(size_t n) const
+double BulkQuote::net_price(std::size_t n) const
 {
     auto one_price = n > quantity ? price * (1 - discount) : price;
     return n * one_price;
@@ -83,7 +83,7 @@ LimitQuote &LimitQuote::operator=(LimitQuote &&rhs)
     return *this;
 }
 
-double LimitQuote::net_price(size_t n) const
+double LimitQuote::net_price(std::size_t n) const
 {
     double ret = 0;
     if (n < quantity)
@@ -103,4 +103,11 @@ void LimitQuote::debug()
     std::cout << "price = " << price << std::endl;
     std::cout << "max_qty = " << quantity << std::endl;
     std::cout << "discount = " << discount << std::endl;
+}
+
+double print_total(std::ostream &os, Quote &item, std::size_t n)
+{
+    auto ret = item.net_price(n);
+    std::cout << "ISBN: " <<item.isbn() << " # sold: " << n << " total due: " << ret << std::endl;
+    return ret;
 }
