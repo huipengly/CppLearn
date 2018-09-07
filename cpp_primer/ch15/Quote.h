@@ -52,9 +52,17 @@ protected:
 class BulkQuote : public DiscQuote
 {
 public:
-    // using DiscQuote::DiscQuote;
-    BulkQuote(const std::string &book, double sales_price, std::size_t qty, double disc) :
-        DiscQuote(book, sales_price, qty, disc) {}
+    using DiscQuote::DiscQuote;
+    BulkQuote() = default;
+
+    // changed the below to the inherited constructor for ex15.27.
+    // rules:  1. only inherit from the direct base class.
+    //         2. default, copy and move constructors can not inherit.
+    //         3. any data members of its own are default initialized.
+    //         4. the rest details are in the section section 15.7.4.
+
+    // BulkQuote(const std::string &book, double sales_price, std::size_t qty, double disc) :
+    //     DiscQuote(book, sales_price, qty, disc) {}
     BulkQuote(const BulkQuote &b) : DiscQuote(b) 
         { std::cout << "BulkQuote(const BulkQuote &b)" << std::endl;}
     BulkQuote(BulkQuote &&b) : DiscQuote(std::move(b)) 
@@ -68,9 +76,10 @@ public:
 class LimitQuote : public DiscQuote
 {
 public:
-    // using DiscQuote::DiscQuote;
-    LimitQuote(const std::string &book, double sales_price, std::size_t qty, double disc) :
-        DiscQuote(book, sales_price, qty, disc) {}
+    using DiscQuote::DiscQuote;
+    LimitQuote() = default;
+    // LimitQuote(const std::string &book, double sales_price, std::size_t qty, double disc) :
+    //     DiscQuote(book, sales_price, qty, disc) {}
     LimitQuote(const LimitQuote &l) : DiscQuote(l) 
         { std::cout << "LimitQuote(const LimitQuote &l)" << std::endl;}
     LimitQuote(LimitQuote &&l) : DiscQuote(std::move(l)) 

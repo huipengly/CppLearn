@@ -45,12 +45,14 @@ BulkQuote &BulkQuote::operator=(const BulkQuote &rhs)
 {
     DiscQuote::operator=(rhs);
     std::cout << "BulkQuote &operator=(const BulkQuote &)" << std::endl;
+    return *this;
 }
 
 BulkQuote &BulkQuote::operator=(BulkQuote &&rhs)
 {
     DiscQuote::operator=(std::move(rhs));
     std::cout << "BulkQuote &operator=(BulkQuote &&)" << std::endl;
+    return *this;
 }
 
 double BulkQuote::net_price(size_t n) const
@@ -71,12 +73,14 @@ LimitQuote &LimitQuote::operator=(const LimitQuote &rhs)
 {
     DiscQuote::operator=(rhs);
     std::cout << "LimitQuote &operator=(const LimitQuote &)" << std::endl;
+    return *this;
 }
 
 LimitQuote &LimitQuote::operator=(LimitQuote &&rhs)
 {
     DiscQuote::operator=(std::move(rhs));
     std::cout << "LimitQuote &operator=(LimitQuote &&)" << std::endl;
+    return *this;
 }
 
 double LimitQuote::net_price(size_t n) const
