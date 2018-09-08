@@ -36,7 +36,7 @@ class QueryResult
 {
     friend std::ostream& print(std::ostream &, const QueryResult&);
 public:
-    typedef TextQuery::line_no line_no;
+    typedef std::vector<int>::size_type line_no;
     QueryResult(const std::string &s, std::shared_ptr<std::set<line_no>> p, std::shared_ptr<std::vector<std::string>> f) :
         sought(s), lines(p), file(f) {}
     std::set<line_no>::iterator begin() { return lines->begin(); }      //!< @brief 返回单词所在行set的第一个元素迭代器

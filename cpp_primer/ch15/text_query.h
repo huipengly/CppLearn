@@ -56,7 +56,7 @@ TextQuery::TextQuery(std::ifstream &is):
             auto &lines = wm[word];
             if (!lines)     // 第一次遇到这个单词时，此指针为空
             {
-                lines.reset(new set<line_no>);  // 分配一个新的set
+                lines.reset(new std::set<line_no>);  // 分配一个新的set
             }
             lines->insert(n);                   // 将此行号插入
         }
@@ -71,7 +71,7 @@ TextQuery::TextQuery(std::ifstream &is):
  */
 QueryResult TextQuery::query(const std::string& sought) const       // Hints:这里要加const，因为可能使静态对象调用
 {
-    static std::shared_ptr<set<line_no>> nodata(std::make_shared<std::set<line_no>>());     // 定义成静态的，这种nodata只需要一个
+    static std::shared_ptr<std::set<line_no>> nodata(std::make_shared<std::set<line_no>>());     // 定义成静态的，这种nodata只需要一个
     auto loc = wm.find(sought);                            // Hints:这里需要单独将迭代器定义出来，不然下面word_number[sought]将报错，因为这个操作可能在set里添加东西，不满足const的要求
     if (loc != wm.end())
     {
