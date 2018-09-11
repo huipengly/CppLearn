@@ -2,7 +2,7 @@
 using namespace std;
 
 template <typename T, unsigned N>
-void my_print(T (&arr)[N])
+void my_print(const T (&arr)[N])
 {
     for (auto elem : arr)
     {
