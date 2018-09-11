@@ -46,8 +46,8 @@ class Blob {
     friend bool operator>=<T>
             (const Blob<T> &, const Blob<T> &);
 public:
-    // using size_type = std::vector<T>::size_type;
-    typedef typename std::vector<T>::size_type size_type;
+    using size_type = typename std::vector<T>::size_type;
+    // typedef typename std::vector<T>::size_type size_type;
     friend class BlobPtr<T>;
     friend class ConstBlobPtr<T>;
 
