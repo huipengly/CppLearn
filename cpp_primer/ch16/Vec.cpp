@@ -30,13 +30,13 @@ Vec<T>::Vec(std::initializer_list<T> li)
  * @brief 在vector后添加一个新的T
  * 
  * @tparam T 模板参数
- * @param s 需要添加的T
+ * @param t 需要添加的T
  */
 template <typename T>
-void Vec<T>::push_back(const T &s)
+void Vec<T>::push_back(const T &t)
 {
     chk_n_alloc();
-    alloc.construct(first_free++, s);
+    alloc.construct(first_free++, t);
 }
 
 /**
@@ -82,12 +82,12 @@ void Vec<T>::free()
  * @brief Construct a new Vec< T>:: Vec object
  * 
  * @tparam T 模板参数
- * @param s 拷贝构造使用的Vec
+ * @param t 拷贝构造使用的Vec
  */
 template <typename T>
-Vec<T>::Vec(const Vec &s)
+Vec<T>::Vec(const Vec &t)
 {
-    auto new_data = allocate_n_copy(s.begin(), s.end());
+    auto new_data = allocate_n_copy(t.begin(), t.end());
     elements = new_data.first;
     first_free = cap = new_data.second;
 }
@@ -96,12 +96,12 @@ Vec<T>::Vec(const Vec &s)
  * @brief 移动构造函数
  * 
  * @tparam T 模板参数
- * @param s 右值
+ * @param t 右值
  */
 template <typename T>
-Vec<T>::Vec(const Vec &&s) noexcept
+Vec<T>::Vec(const Vec &&t) noexcept
 {
-    auto new_data = allocate_n_move(s.begin(), s.end());
+    auto new_data = allocate_n_move(t.begin(), t.end());
     elements = new_data.first;
     first_free = cap = new_data.second;
 }
@@ -163,7 +163,7 @@ Vec<T>& Vec<T>::operator=(const Vec &&rhs) noexcept
  * @param sz 申请内存大小
  */
 template <typename T>
-void Vec<T>::allocate_n_move(size_t sz)
+void Vec<T>::allocate_n_move(std::size_t sz)
 {
     auto new_elements = alloc.allocate(sz);
     auto new_first_free = new_elements;
@@ -196,7 +196,7 @@ void Vec<T>::reallocate()
  * @param new_cap_num 期望的内存空间大小
  */
 template <typename T>
-void Vec<T>::reserve(size_t new_cap_num)
+void Vec<T>::reserve(std::size_t new_cap_num)
 {
     if (new_cap_num <= capacity())          // 新size小于capacity，不改变
         return;                             
@@ -211,10 +211,11 @@ void Vec<T>::reserve(size_t new_cap_num)
  * 
  * @tparam T 
  * @param sz 大小
- * @param s 容器
+ * @param t 容器
  */
 template <typename T>
-void Vec<T>::resize(size_t sz, const T &s)                  // FIXME:这里原来设置了默认值，T怎么设置默认值？
+void Vec<T>::resize(std::size_t sz, const T &t)                  // Confusion:这里原来设置了默认值，T怎么设置默认值？ GitHub上就未设置默认值
+                                                            // 看标准是重载了一个resize(std::size_t sz)的函数，里面用默认插入分配的值
 {
     if (size() < sz)                                        // 若当前大小小于 count ，则后附s
     {
@@ -222,7 +223,7 @@ void Vec<T>::resize(size_t sz, const T &s)                  // FIXME:这里原�
             reserve(sz * 2);                                // 考虑到之后的分配，大小应使用sz*2，而不是sz
         for (auto i = first_free; i != elements + sz; ++i)
         {
-            alloc.construct(i, s);                          // 这里要使用分配器构造内存，不能直接赋值
+            alloc.construct(i, t);                          // 这里要使用分配器构造内存，不能直接赋值
         }
     }
     else if (size() > sz)                                   // 若当前大小大于 sz ，则减小容器为其首 sz 个元素。
