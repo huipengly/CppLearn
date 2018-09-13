@@ -42,7 +42,7 @@ private:
  * @note 根据文件流，存储文本，统计单词出现次数，出现行号
  */
 TextQuery::TextQuery(std::ifstream &is): 
-        file(new std::vector<std::string>(), DebugDelete())
+        file(std::make_shared<std::vector<std::string>>(), DebugDelete())
 {
     std::string text;
     // 按行读取文件流
