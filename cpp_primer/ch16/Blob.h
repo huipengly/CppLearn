@@ -58,6 +58,8 @@ public:
 
     Blob():data(std::make_shared<std::vector<T>>()) { }
     Blob(std::initializer_list<T> il):data(std::make_shared<std::vector<T>>(il)) { }
+    template <typename It>
+        Blob(It &b, It &e):data(std::make_shared<std::vector<T>>(b, e)) { }
 
     size_type size() const { return data->size(); }
     bool empty() const { return data->empty(); }
