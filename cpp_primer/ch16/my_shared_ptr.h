@@ -1,6 +1,8 @@
 #ifndef _MY_SHARED_PTR_H_
 #define _MY_SHARED_PTR_H_
 
+#include <iostream>
+
 template <typename T>
 class my_shared_ptr
 {
@@ -24,7 +26,10 @@ public:
     void free()
     {
         if(--counter == 0)
+        {
             del ? del(p) : delete p; 
+            std::cout << "delete memory." << std::endl;
+        }
     }
     T& operator[](std::size_t sz) { return *(p + sz); }
     const T& operator[](std::size_t sz) const { return *(p + sz); }
