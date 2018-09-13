@@ -5,6 +5,8 @@
 #include <iostream>
 #include <vector>
 
+// @note 输入输出流不能加const！！
+
 template <std::string::size_type, std::string::size_type> class Screen;
 template <std::string::size_type H, std::string::size_type W>
     std::istream &operator>>(std::istream &, Screen<H, W> &);           // Hints:这里函数参数是没有const的！！！！！
