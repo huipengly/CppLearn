@@ -53,3 +53,13 @@ Sales_data Sales_data::operator=(const std::string &s)
     *this = Sales_data(s);
     return *this;           // 记得return！
 }
+
+bool operator==(const Sales_data &lhs, const Sales_data &rhs)
+{
+    return (lhs.bookNo == rhs.bookNo) && (lhs.revenue == rhs.revenue) && (lhs.units_sold == rhs.units_sold);
+}
+
+bool operator!=(const Sales_data &lhs, const Sales_data &rhs)
+{
+    return !(lhs == rhs);
+}

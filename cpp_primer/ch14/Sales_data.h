@@ -9,6 +9,10 @@ std::istream & operator>>(std::istream&, Sales_data&);           //read的声明
 std::ostream & operator<<(std::ostream&, const Sales_data&);
 Sales_data operator+(const Sales_data&, const Sales_data&);
 Sales_data operator-(const Sales_data&, const Sales_data&);
+bool operator==(const Sales_data&, const Sales_data&);
+bool operator!=(const Sales_data&, const Sales_data&);
+
+// template <class> class std::hash;
 
 class Sales_data
 {
@@ -16,6 +20,9 @@ class Sales_data
     friend std::ostream & operator<<(std::ostream&, const Sales_data&);
     friend Sales_data operator+(const Sales_data&, const Sales_data&);
     friend Sales_data operator-(const Sales_data&, const Sales_data&);
+    friend struct std::hash<Sales_data>;
+    friend bool operator==(const Sales_data&, const Sales_data&);
+    friend bool operator!=(const Sales_data&, const Sales_data&);
 public:
     Sales_data(const std::string &s, const unsigned &n, const double &p) : 
                 bookNo(s), units_sold(n), revenue(p * n) { std::cout << "Sales_data(const std::string &s, const unsigned &n, const double &p)\n"; }
@@ -31,7 +38,6 @@ public:
     explicit operator std::string() const { return bookNo; }
     explicit operator double() const { return revenue; }
 
-
 private:
     double avg_price() const { return revenue / units_sold; }
 
@@ -40,5 +46,20 @@ private:
     double revenue = 0.0;
 };
 
+
+namespace std{
+    template<>
+    struct hash<Sales_data>
+    {
+        typedef size_t result_type;
+        typedef Sales_data argument_type;
+        size_t operator()(const Sales_data &s) const
+        {
+            return hash<std::string>()(s.bookNo) ^
+                    hash<unsigned>()(s.units_sold) ^
+                    hash<double>()(s.revenue);
+        }
+    };
+}
 
 #endif
