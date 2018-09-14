@@ -42,6 +42,7 @@ public:
     const std::string& at(size_t n) const { if (n > size()) throw std::out_of_range("out_of_range"); return elements[n]; }
     std::string& operator[](size_t n) { return elements[n]; }
     const std::string& operator[](size_t n) const { return elements[n]; }
+    template <typename... Args> void emplace_back(Args&&...);
 
 private:
     static std::allocator<std::string> alloc;
@@ -66,4 +67,13 @@ bool operator<=(const StrVec&, const StrVec&);
 bool operator>(const StrVec&, const StrVec&);
 bool operator>=(const StrVec&, const StrVec&);
 
+
+template <typename... Args>
+void StrVec::emplace_back(Args&&... args)
+{
+    chk_n_alloc();
+    // alloc.construct(first_free++, std::string(args...));
+    // alloc.construct(first_free++, std::forward<Args>(args...));      // 不是扩展了给forward，而是每个单独给forward
+    alloc.construct(first_free++, std::forward<Args>(args)...);
+}
 #endif
