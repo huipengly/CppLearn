@@ -4,18 +4,18 @@
 #include <string>
 #include <sstream>
 
-template <typename T> std::string debug_rep(const T&);
-template <typename T> std::string debug_rep(T*);
-std::string debug_rep(const std::string&);
-std::string debug_rep(const char* str)
-{
-    return debug_rep(std::string(str));
-}
+// template <typename T> std::string debug_rep(const T&);
+// template <typename T> std::string debug_rep(T*);
+// std::string debug_rep(const std::string&);
+// std::string debug_rep(const char* str)
+// {
+//     return debug_rep(std::string(str));
+// }
 
-std::string debug_rep(char* str)
-{
-    return debug_rep(std::string(str));
-}
+// std::string debug_rep(char* str)
+// {
+//     return debug_rep(std::string(str));
+// }
 
 template <typename T> std::string debug_rep(const T& rep)
 {
@@ -33,6 +33,18 @@ template <typename T> std::string debug_rep(T *p)
     else
         ret << " null pointer.";
     return ret.str();
+}
+
+template <>
+std::string debug_rep(const char *str)
+{
+    return debug_rep(std::string(str));
+}
+
+template <>
+std::string debug_rep(char *str)
+{
+    return debug_rep(std::string(str));
 }
 
 std::string debug_rep(const std::string& str)
