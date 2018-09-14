@@ -17,5 +17,6 @@ int main(int argc, char const *argv[])
     f(s, 42, "hi");
     f(d, s);
     f("hi");
+    f("hi", i, i);
     return 0;
 }
