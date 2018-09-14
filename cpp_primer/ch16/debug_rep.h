@@ -38,13 +38,13 @@ template <typename T> std::string debug_rep(T *p)
 template <>
 std::string debug_rep(const char *str)
 {
-    return debug_rep(std::string(str));
+    return std::string(str);
 }
 
 template <>
 std::string debug_rep(char *str)
 {
-    return debug_rep(std::string(str));
+    return std::string(str);
 }
 
 std::string debug_rep(const std::string& str)
