@@ -7,7 +7,7 @@ int main(int argc, char const *argv[])
 {
     string pattern = "[^c]ei";
     pattern = "[[:alpha:]]*" + pattern + "[[:alpha:]]*";
-    regex r(pattern);
+    regex r(pattern, regex::icase);
     smatch results;
     string in;
     while (getline(cin, in))
