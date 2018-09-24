@@ -10,11 +10,9 @@ public:
     int grade(const string &s) const
     {
         bitset<10> student_answer(s);
-        int ret = 0;
-        for (auto i = 0; i != 10; ++i)
-            if (answer[i] == student_answer[i])
-                ++ret;
-        return ret;
+        bitset<10> result = answer ^ student_answer;
+        result.flip();
+        return result.count();
     }
 private:
     bitset<10> answer;
