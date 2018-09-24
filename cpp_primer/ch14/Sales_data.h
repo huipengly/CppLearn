@@ -25,10 +25,10 @@ class Sales_data
     friend bool operator!=(const Sales_data&, const Sales_data&);
 public:
     Sales_data(const std::string &s, const unsigned &n, const double &p) : 
-                bookNo(s), units_sold(n), revenue(p * n) { std::cout << "Sales_data(const std::string &s, const unsigned &n, const double &p)\n"; }
-    Sales_data() : Sales_data("", 0, 0) { std::cout << "Sales_data()\n"; }
-    Sales_data(const std::string& s) : Sales_data(s, 0, 0) { std::cout << "Sales_data(const std::string& s)\n"; }
-    Sales_data(std::istream& is) : Sales_data() { std::cout << "Sales_data(std::istream& is)\n"; is >> *this; }
+                bookNo(s), units_sold(n), revenue(p * n) { /*std::cout << "Sales_data(const std::string &s, const unsigned &n, const double &p)\n";*/ }
+    Sales_data() : Sales_data("", 0, 0) { /*std::cout << "Sales_data()\n";*/ }
+    Sales_data(const std::string& s) : Sales_data(s, 0, 0) { /*std::cout << "Sales_data(const std::string& s)\n";*/ }
+    Sales_data(std::istream& is) : Sales_data() { /*std::cout << "Sales_data(std::istream& is)\n"; is >> *this;*/ }
 
     std::string isbn() const { return bookNo; }
     Sales_data& operator+=(const Sales_data&);
