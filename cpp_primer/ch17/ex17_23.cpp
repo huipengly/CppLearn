@@ -1,3 +1,11 @@
+/**
+ * @brief 
+ * 
+ * @file ex17_23.cpp
+ * @author huipengly
+ * @date 2018-09-24
+ * @note 有一种特殊情况无法解决,就是000000-000.正则表达式是在字符串中一段一段检测的,那么检测到00000时,就匹配了.
+ */
 #include <regex>
 #include <iostream>
 #include <string>
