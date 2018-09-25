@@ -9,6 +9,8 @@ Sales_data& Sales_data::operator+=(const Sales_data &rhs)
 
 Sales_data operator+(const Sales_data &lhs, const Sales_data &rhs)
 {
+    if (lhs.isbn() != rhs.isbn())
+        throw isbn_mismatch("wrong isbns", lhs.isbn(), rhs.isbn());
     Sales_data sum = lhs;
     sum += rhs;
     return sum;

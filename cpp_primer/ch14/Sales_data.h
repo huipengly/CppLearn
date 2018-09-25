@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <stdexcept>
 
 class Sales_data;                                      //先声明这个类名，给下面三个声明使用。
 std::istream & operator>>(std::istream&, Sales_data&);           //read的声明要在类定义前，不然无法调用
@@ -13,6 +14,20 @@ bool operator==(const Sales_data&, const Sales_data&);
 bool operator!=(const Sales_data&, const Sales_data&);
 
 // template <class> class std::hash;
+
+class out_of_stock : public std::runtime_error
+{
+public:
+    explicit out_of_stock(const std::string &msg) : runtime_error(msg) {}
+};
+
+class isbn_mismatch : public std::logic_error
+{
+public:
+    explicit isbn_mismatch(const std::string &msg) : logic_error(msg) {}
+    isbn_mismatch(const std::string &msg, const std::string &lhs, const std::string &rhs) : logic_error(msg), lhs(lhs), rhs(rhs) {}
+    const string left, right;
+};
 
 class Sales_data
 {
