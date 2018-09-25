@@ -13,6 +13,7 @@ void* operator new(std::size_t sz)
         throw bad_alloc();
 }
 
+// 这个delete在vs里可以进入，在gcc进不去，没有尝试在gcc调试
 void operator delete(void* mem) noexcept
 {
     cout << "my delete" << endl;
