@@ -1,5 +1,5 @@
 /**
- * @brief Á·Ï°16.13
+ * @brief ç»ƒä¹ 16.13
  * 
  * @file Blob.h
  * @author huipengly
@@ -13,6 +13,7 @@
 #include <initializer_list>
 #include <memory>
 #include <stdexcept>
+#include <iostream>
 
 template <typename> class Blob;
 template <typename> class BlobPtr;
@@ -56,10 +57,16 @@ public:
     ConstBlobPtr<T> begin() const;
     ConstBlobPtr<T> end() const;
 
-    Blob():data(std::make_shared<std::vector<T>>()) { }
-    Blob(std::initializer_list<T> il):data(std::make_shared<std::vector<T>>(il)) { }
+    Blob() try :data(std::make_shared<std::vector<T>>()) { } catch (const std::bad_alloc &e){
+        std::cout << e.what() << std::endl;
+    }
+    Blob(std::initializer_list<T> il) try :data(std::make_shared<std::vector<T>>(il)) { } catch (const std::bad_alloc &e){
+        std::cout << e.what() << std::endl;
+    }
     template <typename It>
-        Blob(It &b, It &e):data(std::make_shared<std::vector<T>>(b, e)) { }
+        Blob(It &b, It &e) try :data(std::make_shared<std::vector<T>>(b, e)) { } catch (const std::bad_alloc &err) {
+            std::cout << err.what() << std::endl;
+        }
 
     size_type size() const { return data->size(); }
     bool empty() const { return data->empty(); }
@@ -130,8 +137,12 @@ class BlobPtr {
     friend BlobPtr operator+<T>(BlobPtr &, std::size_t);
     friend BlobPtr operator-<T>(BlobPtr &, std::size_t);
 public:
-    BlobPtr():curr(0) { }
-    BlobPtr(Blob<T> &a, std::size_t sz = 0):wptr(a.data), curr(sz) { }
+    BlobPtr() try : curr(0) { } catch (std::exception &e) {
+        std::cout << e.what() << std::endl;
+    }
+    BlobPtr(Blob<T> &a, std::size_t sz = 0) try : wptr(a.data), curr(sz) { } catch (std::exception &e) {
+        std::cout << e.what() << std::endl;
+    }
     bool operator!=(const BlobPtr& p) { return p.curr != curr; }
     T& operator*() const {
         auto p = check(curr, "dereference past end");
