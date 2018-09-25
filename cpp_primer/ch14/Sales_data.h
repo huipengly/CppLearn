@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <stdexcept>
+#include <functional>
 
 class Sales_data;                                      //先声明这个类名，给下面三个声明使用。
 std::istream & operator>>(std::istream&, Sales_data&);           //read的声明要在类定义前，不然无法调用
@@ -25,8 +26,8 @@ class isbn_mismatch : public std::logic_error
 {
 public:
     explicit isbn_mismatch(const std::string &msg) : logic_error(msg) {}
-    isbn_mismatch(const std::string &msg, const std::string &lhs, const std::string &rhs) : logic_error(msg), lhs(lhs), rhs(rhs) {}
-    const string left, right;
+    isbn_mismatch(const std::string &msg, const std::string &lhs, const std::string &rhs) : logic_error(msg), left(lhs), right(rhs) {}
+    const std::string left, right;
 };
 
 class Sales_data
