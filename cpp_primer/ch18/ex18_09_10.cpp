@@ -15,6 +15,9 @@ int main(int argc, char const *argv[])
             cout << e.what() << ": left isbn(" << e.left << ") right isbn(" << e.right << ")" << endl;
         }
         cout << sum << endl;
+
+        sum = item1 + item2;
+        cout << sum << endl;
     }
     return 0;
 }
