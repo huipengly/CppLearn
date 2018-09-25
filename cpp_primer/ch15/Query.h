@@ -14,7 +14,8 @@ class QueryBase
     friend class Query;
 protected:
     using line_no = TextQuery::line_no;
-    virtual ~QueryBase() {}         // Hints:虚析构函数需要定义，而不仅仅是声明。（错误的：virtual ~QueryBase();）
+    virtual ~QueryBase() = default;         // Hints: 虚析构函数需要定义，而不仅仅是声明。（错误的：virtual ~QueryBase();）
+                                            // Hints: 虚构函数使用默认的，不要加个{}的
 private:
     virtual QueryResult eval(const TextQuery &) const = 0;
     virtual std::string rep() const = 0;
