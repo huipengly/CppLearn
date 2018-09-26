@@ -8,7 +8,9 @@ class Token{
 public:
     Token() : tok(INT), ivar(0) {}
     Token(const Token& t) : tok(t.tok) { copyUnion(t); }
+    Token(Token&& t) : tok(std::move(t.tok)) { moveUnion(std::move(t)); }
     Token &operator=(const Token&);
+    Token &operator=(Token &&);
     ~Token() { freeUnion(); }
 
     Token &operator=(char);
@@ -27,6 +29,7 @@ private:
         Sales_data sdvar;
     };
     void copyUnion(const Token&);
+    void moveUnion(Token &&);
     void freeUnion();
 };
 

@@ -63,6 +63,17 @@ void Token::copyUnion(const Token& t)
     }
 }
 
+void Token::moveUnion(Token&& t)
+{
+    switch(t.tok){
+        case INT: ivar = std::move(t.ivar); break;
+        case CHAR: cvar = std::move(t.cvar); break;
+        case DBL: dvar = std::move(t.dvar); break;
+        case STR: new(&svar) string(std::move(t.svar)); break;
+        case SD: new(&sdvar) Sales_data(std::move(t.sdvar)); break;
+    }
+}
+
 Token& Token::operator=(const Token& t)
 {
     if (tok == STR && t.tok != STR) svar.~string();
@@ -73,5 +84,18 @@ Token& Token::operator=(const Token& t)
         sdvar = t.sdvar;
     else
         copyUnion(t);
+    return *this;
+}
+
+Token& Token::operator=(Token&& t)
+{
+    if (tok == STR && t.tok != STR) svar.~string();
+    if (tok == SD && t.tok != SD) sdvar.~Sales_data();
+    if (tok == STR && t.tok == STR)
+        svar = std::move(t.svar);
+    else if (tok == SD && t.tok == SD)
+        sdvar = std::move(t.sdvar);
+    else
+        moveUnion(std::move(t));
     return *this;
 }
