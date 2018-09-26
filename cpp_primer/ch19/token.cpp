@@ -1,9 +1,17 @@
 #include "token.h"
 using std::string;
 
+void Token::freeUnion()
+{
+    switch(tok){
+        case STR: svar.std::string::~string(); break;
+        case SD: sdvar.~Sales_data(); break;
+    }
+}
+
 Token& Token::operator=(int i)
 {
-    if (tok == STR) svar.~string();
+    freeUnion();
     tok = INT;
     ivar = i;
     return *this;
@@ -11,15 +19,14 @@ Token& Token::operator=(int i)
 
 Token& Token::operator=(char c)
 {
-    if (tok == STR) svar.~string();
-    tok = CHAR;
+    freeUnion();
     cvar = c;
     return *this;
 }
 
 Token& Token::operator=(double d)
 {
-    if (tok == STR) svar.~string();
+    freeUnion();
     tok = DBL;
     dvar = d;
     return *this;
@@ -35,6 +42,16 @@ Token& Token::operator=(const string& s)
     return *this;
 }
 
+Token& Token::operator=(const Sales_data& sd)
+{
+    if (tok == SD)
+        sdvar = sd;
+    else
+        new(&sdvar) Sales_data(sd);
+    tok = SD;
+    return *this;
+}
+
 void Token::copyUnion(const Token& t)
 {
     switch(t.tok){
@@ -42,14 +59,18 @@ void Token::copyUnion(const Token& t)
         case CHAR: cvar = t.cvar; break;
         case DBL: dvar = t.dvar; break;
         case STR: new(&svar) string(t.svar); break;
+        case SD: new(&sdvar) Sales_data(t.sdvar); break;
     }
 }
 
 Token& Token::operator=(const Token& t)
 {
     if (tok == STR && t.tok != STR) svar.~string();
+    if (tok == SD && t.tok != SD) sdvar.~Sales_data();
     if (tok == STR && t.tok == STR)
         svar = t.svar;
+    else if (tok == SD && t.tok == SD)
+        sdvar = t.sdvar;
     else
         copyUnion(t);
     return *this;
