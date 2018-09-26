@@ -13,11 +13,12 @@ void cast_test()
             if (typeid(*pa1) == typeid(AndQuery))
                 cout << "cast success." << endl;
             else
-                throw bad_alloc();
+                throw bad_cast();
         }
         else
-            throw bad_alloc();
-    } catch (const bad_alloc &e){
+            throw bad_cast();
+    } catch (const bad_cast &e){
+        cout << "cast failed" << endl;
         cout << e.what() << endl;
     }
 
@@ -28,11 +29,12 @@ void cast_test()
             if (typeid(*pa2) == typeid(AndQuery))
                 cout << "cast success." << endl;
             else
-                throw bad_alloc();
+                throw bad_cast();
         }
         else
-            throw bad_alloc();
-    } catch (const bad_alloc &e){
+            throw bad_cast();
+    } catch (const bad_cast &e){
+        cout << "cast failed" << endl;
         cout << e.what() << endl;
     }
 }
