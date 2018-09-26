@@ -2,11 +2,13 @@
 #include <algorithm>
 #include <functional>
 #include "Sales_data.h"
+#include <iostream>
 using namespace std;
 using namespace std::placeholders;
 
-auto count_price(const vector<Sales_data>& Svec, double price) -> decltype(Svec.begin())
+auto count_price(const vector<Sales_data>& Svec, double price) -> decltype(Svec.begin())        // Hints: 这样写返回值方便，不用自己推导
 {
+    cout << typeid(Svec.begin()).name() << endl;
     // function<double ()> fcn(Sales_data::AVG); 
     // function<double () const> fcn(&Sales_data::avg_price);
     auto fcn = bind(&Sales_data::avg_price, _1);
