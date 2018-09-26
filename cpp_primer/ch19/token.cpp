@@ -84,6 +84,7 @@ Token& Token::operator=(const Token& t)
         sdvar = t.sdvar;
     else
         copyUnion(t);
+    tok = t.tok;
     return *this;
 }
 
