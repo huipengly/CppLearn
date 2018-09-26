@@ -32,7 +32,7 @@ public:
 
 class Sales_data
 {
-    friend int main(int argc, char const *argv[]);
+    friend void test_point_to_avg();
     friend std::istream & operator>>(std::istream&, Sales_data&);
     friend std::ostream & operator<<(std::ostream&, const Sales_data&);
     friend Sales_data operator+(const Sales_data&, const Sales_data&);
@@ -41,6 +41,7 @@ class Sales_data
     friend bool operator==(const Sales_data&, const Sales_data&);
     friend bool operator!=(const Sales_data&, const Sales_data&);
 public:
+    using AVG = double (Sales_data::*)() const;     // 这里不知道typedef怎么写
     Sales_data(const std::string &s, const unsigned &n, const double &p) : 
                 bookNo(s), units_sold(n), revenue(p * n) { /*std::cout << "Sales_data(const std::string &s, const unsigned &n, const double &p)\n";*/ }
     Sales_data() : Sales_data("", 0, 0) { /*std::cout << "Sales_data()\n";*/ }
