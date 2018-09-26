@@ -1,5 +1,6 @@
 #include "token.h"
 using std::string;
+using std::ostream;
 
 void Token::freeUnion()
 {
@@ -20,6 +21,7 @@ Token& Token::operator=(int i)
 Token& Token::operator=(char c)
 {
     freeUnion();
+    tok = CHAR;
     cvar = c;
     return *this;
 }
@@ -98,4 +100,17 @@ Token& Token::operator=(Token&& t) noexcept // Hints: noexcept在函数的声明
     }
 
     return *this;
+}
+
+ostream& operator<<(ostream& os, const Token& t)
+{
+    switch(t.tok)
+    {
+        case Token::INT: os << t.ivar; break;
+        case Token::CHAR: os << t.cvar; break;
+        case Token::DBL: os << t.dvar; break;
+        case Token::STR: os << t.svar; break;
+        case Token::SD: os << t.sdvar; break;
+    }
+    return os;
 }

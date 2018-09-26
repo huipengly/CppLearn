@@ -2,10 +2,15 @@
 #define _TOKEN_H_
 
 #include <string>
+#include <ostream>
 #include "Sales_data.h"
+
+class Token;
+std::ostream& operator<<(std::ostream&, const Token&);
 
 class Token{
 public:
+    friend std::ostream& operator<<(std::ostream&, const Token&);
     Token() : tok(INT), ivar(0) {}
     Token(const Token& t) : tok(t.tok) { copyUnion(t); }
     Token(Token&& t) noexcept : tok(std::move(t.tok)) { moveUnion(std::move(t)); }
