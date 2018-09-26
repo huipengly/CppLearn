@@ -32,6 +32,7 @@ public:
 
 class Sales_data
 {
+    friend int main(int argc, char const *argv[]);
     friend std::istream & operator>>(std::istream&, Sales_data&);
     friend std::ostream & operator<<(std::ostream&, const Sales_data&);
     friend Sales_data operator+(const Sales_data&, const Sales_data&);
