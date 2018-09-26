@@ -5,6 +5,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <functional>
+#include <vector>
 
 class Sales_data;                                      //先声明这个类名，给下面三个声明使用。
 std::istream & operator>>(std::istream&, Sales_data&);           //read的声明要在类定义前，不然无法调用
@@ -33,6 +34,7 @@ public:
 class Sales_data
 {
     friend void test_point_to_avg();
+    friend auto count_price(const std::vector<Sales_data>& Svec, double price) -> decltype(Svec.begin());
     friend std::istream & operator>>(std::istream&, Sales_data&);
     friend std::ostream & operator<<(std::ostream&, const Sales_data&);
     friend Sales_data operator+(const Sales_data&, const Sales_data&);
