@@ -6,12 +6,14 @@ using namespace std;
 
 class Base{
 public:
-    virtual void fun() = 0;
+    // virtual void fun() = 0;
+    Base() = default;
+    virtual ~Base() = default;      // Hints: 这里只需要有一个虚析构函数，就能完成动态绑定。
 };
 
 class Derived : public Base {
 public:
-    void fun() {}
+    // void fun() {}
 };
 
 ostream& translate(ostream &os, const type_info& type)
