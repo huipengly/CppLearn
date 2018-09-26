@@ -90,13 +90,12 @@ Token& Token::operator=(const Token& t)
 
 Token& Token::operator=(Token&& t)
 {
-    if (tok == STR && t.tok != STR) svar.~string();
-    if (tok == SD && t.tok != SD) sdvar.~Sales_data();
-    if (tok == STR && t.tok == STR)
-        svar = std::move(t.svar);
-    else if (tok == SD && t.tok == SD)
-        sdvar = std::move(t.sdvar);
-    else
-        moveUnion(std::move(t));
+    if (*this != t)
+    {
+        freeUnion();
+        moveUnion(t);
+        tok = t.tok;
+    }
+
     return *this;
 }
