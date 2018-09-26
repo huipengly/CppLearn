@@ -88,12 +88,12 @@ Token& Token::operator=(const Token& t)
     return *this;
 }
 
-Token& Token::operator=(Token&& t)
+Token& Token::operator=(Token&& t) noexcept // Hints: noexcept在函数的声明、实现都要加入
 {
-    if (*this != t)
+    if (this != &t)     // Hints: 这里对象没有实现比较，应该用地址比较
     {
         freeUnion();
-        moveUnion(t);
+        moveUnion(std::move(t));
         tok = t.tok;
     }
 
