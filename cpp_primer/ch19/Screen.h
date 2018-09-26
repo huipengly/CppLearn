@@ -26,6 +26,9 @@ class Screen
 
 public:
     using pos = string::size_type;
+    using GET1 = char (Screen::*)() const;
+    using GET2 = char (Screen::*)(pos, pos) const;
+    using MOVE = Screen& (Screen::*)(pos, pos);
     Screen() = default;
     Screen(pos wd, pos ht, char c = ' ') : height(ht), width(wd), contents(ht * wd, c) {}
     char get() const { return contents[cursor]; }
