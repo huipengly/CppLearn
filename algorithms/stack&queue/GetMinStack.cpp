@@ -1,11 +1,10 @@
 /**
  * @file Template.cpp
  * @author huipengly
- * @brief 写笔试题目的c++模板
+ * @brief 可返回最小值栈
  * @version 0.1
  * @date 2018-12-20
  * 
- * @note 包含了常用的库文件，随机数引擎配置好了。
  */
 #include <iostream>
 #include <vector>

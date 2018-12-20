@@ -1,11 +1,10 @@
 /**
  * @file Template.cpp
  * @author huipengly
- * @brief 写笔试题目的c++模板
+ * @brief 使用数组实现堆栈、队列
  * @version 0.1
  * @date 2018-12-20
  * 
- * @note 包含了常用的库文件，随机数引擎配置好了。
  */
 #include <iostream>
 #include <vector>
@@ -161,7 +160,7 @@ void test()
 		auto vecTest = generateRandomArray(maxSize, maxValue);
 		auto vecTrue = vecTest;
 		auto origin = vecTest;
-		auto resultTest = testMethod(vecTest);
+		auto resultTest = 	 testMethod(vecTest);
 		auto resultCompare = compareMethod(vecTrue);
 		if (!isEqual(resultTest, resultCompare))
 		{
