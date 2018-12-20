@@ -83,10 +83,14 @@ void Merge(vector<int> &a, int lo, int mid, int hi)
 
 	for (int k = lo; k <= hi; ++k)
 	{
-		if (i > mid)				a[k] = aux[j++];
-		else if (j > hi)			a[k] = aux[i++];
-		else if (aux[i] < aux[j]) a[k] = aux[i++];
-		else						a[k] = aux[j++];
+		if (i > mid)
+			a[k] = aux[j++];
+		else if (j > hi)
+			a[k] = aux[i++];
+		else if (aux[i] > aux[j])
+			a[k] = aux[j++];
+		else
+			a[k] = aux[i++];
 	}
 }
 
@@ -158,7 +162,6 @@ void QuickSort(vector<int> &a)
 }
 
 // 3-way Quick Sort
-
 vector<int> Partition3Way(vector<int> &a, int lo, int hi)
 {
 	int v = a[lo];
@@ -207,10 +210,71 @@ void heapSort(vector<T> &a)
 	}
 }
 
+// counting sort 这个程序只能处理正数，可以修改
+void coutingSort(vector<int> &a)
+{
+	if (a.empty())
+		return;
+
+	int max = INT_MIN;
+
+	for (auto i : a)
+		max = std::max(i, max);
+
+	vector<int> bucket(max + 1, 0);
+
+	for (auto i : a)
+		bucket[i]++;
+
+	int k = 0;
+	for (int i = 0; i != bucket.size(); ++i)
+	{
+		while(bucket[i]-- != 0)
+		{
+			a[k++] = i;
+		}
+	}
+}
+
+// Radix sort LSD		排序32位整形，只能排正数
+int bitValue(int i, int bit)				// 返回二进制数第n位的值
+{
+	int cmp = 1 << bit;						// 只有第n位为1的数
+	return ((i & cmp) == cmp ? 1 : 0);
+}
+
+void lsdSort(vector<int> &a)
+{
+	int N = a.size();
+	int R = 2;
+	vector<int> aux(a.size());
+
+	for (int d = 0; d != 32; ++d)
+	{
+		vector<int> count(R + 1, 0);
+
+		// 计数
+		for (auto num : a)
+			count[bitValue(num, d) + 1]++;
+
+		// 频率转换为索引
+		for (int r = 0; r != R; ++r)
+			count[r + 1] += count[r];
+
+		// 将元素分类
+		for (int i = 0; i != N; ++i)
+			aux[count[bitValue(a[i], d)]++] = a[i];
+
+		// 回写
+		for (int i = 0; i != N; ++i)
+			a[i] = aux[i];
+	}
+}
+
 // for test
 void testMethod(vector<int> &a)
 {
-	heapSort(a);
+	lsdSort(a);
 }
 
 void compareMethod(vector<int> &a)
@@ -260,8 +324,8 @@ int main()
 {
 	test();
 
-	vector<int> a{ 110, 104, 53 };
-	QuickSort(a);
+	vector<int> a{ 9, 4, 3, 2 };
+	lsdSort(a);
 
     return 0;
 }
