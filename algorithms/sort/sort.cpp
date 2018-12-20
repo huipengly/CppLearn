@@ -1,13 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <string>
-#include <map>
-#include <unordered_map>
-#include <set>
-#include <unordered_set>
 #include <algorithm>
 #include <random>
-#include <ctime>
 
 using namespace std;
 
@@ -16,7 +10,6 @@ default_random_engine e(rd());	// 随机数引擎
 // uniform_int_distribution<int> u(0, 10);	// 产生一个[0, 10]的随机整数分布
 // uniform_real_distribution<double> u(0, 10);	// 产生一个[0, 10)的随机实数分布
 // int rand = u(e);	//产生随机数
-
 
 void BubbleSort(vector<int> &a)
 {
