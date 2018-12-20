@@ -24,51 +24,51 @@ int main()
     return 0;
 }
 
-// // for test
-// void testMethod(vector<int> &a)
-// {
-// 	QuickSort(a);
-// }
-
-// void compareMethod(vector<int> &a)
-// {
-// 	sort(a.begin(), a.end());
-// }
-
-// vector<int> generateRandomArray(int maxSize, int maxValue)
-// {
-// 	uniform_int_distribution<unsigned> uValue(0, maxValue);
-// 	uniform_int_distribution<unsigned> uSize(0, maxSize);
-// 	vector<int> vec(uSize(e));
-// 	for (auto &i : vec)
-// 		i = uValue(e);
-// 	return vec;
-// }
-
-// bool isEqual(vector<int> &lhs, vector<int> &rhs)
-// {
-// 	return lhs == rhs;
-// }
-
-// void test()
-// {
-// 	int testTime = 50000;
-// 	int maxSize = 20;
-// 	int maxValue = 200;
-// 	bool succeed = true;
-// 	for (int i = 0; i != testTime; ++i)
-// 	{
-// 		auto vecTest = generateRandomArray(maxSize, maxValue);
-// 		auto vecTrue = vecTest;
-// 		auto origin = vecTest;
-// 		testMethod(vecTest);
-// 		compareMethod(vecTrue);
-// 		if (!isEqual(vecTest, vecTrue))
-// 		{
-// 			succeed = false;
-// 			break;
-// 		}
-// 	}
-
-// 	cout << (succeed ? "passed" : "BUG!") << endl;
-// }
+//// for test
+//void testMethod(vector<int> &a)
+//{
+//	QuickSort(a);
+//}
+//
+//void compareMethod(vector<int> &a)
+//{
+//	sort(a.begin(), a.end());
+//}
+//
+//vector<int> generateRandomArray(int maxSize, int maxValue)
+//{
+//	uniform_int_distribution<unsigned> uValue(0, maxValue);
+//	uniform_int_distribution<unsigned> uSize(0, maxSize);
+//	vector<int> vec(uSize(e));
+//	for (auto &i : vec)
+//		i = uValue(e);
+//	return vec;
+//}
+//
+//bool isEqual(vector<int> &lhs, vector<int> &rhs)
+//{
+//	return lhs == rhs;
+//}
+//
+//void test()
+//{
+//	int testTime = 50000;
+//	int maxSize = 20;
+//	int maxValue = 200;
+//	bool succeed = true;
+//	for (int i = 0; i != testTime; ++i)
+//	{
+//		auto vecTest = generateRandomArray(maxSize, maxValue);
+//		auto vecTrue = vecTest;
+//		auto origin = vecTest;
+//		testMethod(vecTest);
+//		compareMethod(vecTrue);
+//		if (!isEqual(vecTest, vecTrue))
+//		{
+//			succeed = false;
+//			break;
+//		}
+//	}
+//
+//	cout << (succeed ? "passed" : "BUG!") << endl;
+//}
