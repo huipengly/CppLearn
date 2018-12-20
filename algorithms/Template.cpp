@@ -81,6 +81,10 @@ void test()
 		auto TrueData = TestData;
 		auto OriginData = TestData;
 
+#define NO_RETURN_VALUE
+//#define HAS_RETURN_VALUE
+
+#ifdef NO_RETURN_VALUE
 		// 无返回类型的判断
 		testMethod(TestData);
 		compareMethod(TrueData);
@@ -89,15 +93,18 @@ void test()
 			succeed = false;
 			break;
 		}
+#endif
 
-		/// 有返回类型的判断
-		//auto TestResult = testMethod(TestData);
-		//auto CompareResult = compareMethod(TrueData);
-		//if (!isEqual(TestResult, CompareResult))
-		//{
-		//	succeed = false;
-		//	break;
-		//}
+#ifdef HAS_RETURN_VALUE
+		// 有返回类型的判断
+		auto TestResult = testMethod(TestData);
+		auto CompareResult = compareMethod(TrueData);
+		if (!isEqual(TestResult, CompareResult))
+		{
+			succeed = false;
+			break;
+		}
+#endif
 	}
 
 	cout << (succeed ? "passed" : "BUG!") << endl;
