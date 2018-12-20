@@ -18,6 +18,7 @@
 #include <random>
 #include <queue>
 #include <stack>
+#include <memory>
 
 using namespace std;
 
@@ -26,6 +27,8 @@ default_random_engine e(rd());	// 随机数引擎
 // uniform_int_distribution<int> u(0, 10);	// 产生一个[0, 10]的随机整数分布
 // uniform_real_distribution<double> u(0, 10);	// 产生一个[0, 10)的随机实数分布
 // int rand = u(e);	//产生随机数
+
+// shared_ptr<int> pint = make_shared<int>();   // 智能指针&申请内存
 
 // 测试用
 auto testMethod(vector<int> &a);
