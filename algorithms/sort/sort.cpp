@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <random>
+#include <queue>
 
 using namespace std;
 
@@ -191,10 +192,25 @@ void QuickSort3Way(vector<int> &a)
 	QuickSort3Way(a, 0, a.size() - 1);
 }
 
+// heap sort
+template <typename T>
+void heapSort(vector<T> &a)
+{
+    priority_queue<T> pq;
+    for (auto i : a)
+        pq.push(i);
+	int i = a.size() - 1;
+	while (!pq.empty())
+	{
+		a[i--] = pq.top();
+		pq.pop();
+	}
+}
+
 // for test
 void testMethod(vector<int> &a)
 {
-	QuickSort3Way(a);
+	heapSort(a);
 }
 
 void compareMethod(vector<int> &a)
@@ -220,7 +236,7 @@ bool isEqual(vector<int> &lhs, vector<int> &rhs)
 void test()
 {
 	int testTime = 50000;
-	int maxSize = 200;
+	int maxSize = 5;
 	int maxValue = 200;
 	bool succeed = true;
 	for (int i = 0; i != testTime; ++i)
