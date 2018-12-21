@@ -30,6 +30,14 @@ default_random_engine e(rd());	// 随机数引擎
 
 // shared_ptr<int> pint = make_shared<int>();   // 智能指针&申请内存
 
+//// 链表结构
+//struct ListNode {
+//    int val;
+//    shared_ptr<ListNode> next;		// 自动回收内存
+//	//ListNode *next;
+//    ListNode(int x) : val(x), next(NULL) {}
+//};
+
 // 测试用
 auto testMethod(vector<int> &a);
 auto compareMethod(vector<int> &a);
