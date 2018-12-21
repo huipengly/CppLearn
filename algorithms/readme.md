@@ -13,10 +13,25 @@
 - 计数排序
 - 低位优先排序(lsd/Radix sort)
 
+2.[linked list](./linkedList)
+
+2.1 删除链表倒数第N个节点(leetcode.19)
+
+- 第一遍遍历找到数组长度L，第二遍遍历删除L-N+1的节点
+- 两个指针，快指针比慢指针快N+1
+
+2.2 反转单向链表(leedcode.206)
+
+- 两个指针，一个指向前一个节点，一个指向当前节点，每次将当前节点的next指向前一个节点。直到当前节点为空，返回前一个节点。
+- **递归**方法：假设当前除了头节点都已经反转，只需要将头节点的下一个节点的next指向头节点即可。递归返回已经反转后的头节点。
+
+2.3 反转双向链表
+
+交换节点pre和next指针。返回原链表的尾节点
 
 extra.笔试题
 
-1.[最大间隔](./sort/MaxGap.cpp)：
+e1.[最大间隔](./sort/MaxGap.cpp)：
 
 **桶排序**
 
@@ -24,7 +39,7 @@ extra.笔试题
 
 N个数，N+1个桶。这样一定有一个非空桶。那么最大插值就在非空桶两侧
 
-2.[使用数组实现堆栈、队列](./stack&queue/StackAndQueueUseArray.cpp)
+e2.[使用数组实现堆栈、队列](./stack&queue/StackAndQueueUseArray.cpp)
 
 **堆栈、队列**
 
@@ -32,7 +47,7 @@ N个数，N+1个桶。这样一定有一个非空桶。那么最大插值就在�
 
 队列：维护三个变量，队列头、队列尾、队列大小。队列头表示第一个所在元素的位置，队列尾表示入栈位置。当队列头/尾到达数组超过末尾时，将其移动到数组头。通过size判断入栈爆栈或者出栈为空。
 
-3.[可返回最小值栈](./stack&queue/GetMinStack.cpp)
+e3.[可返回最小值栈](./stack&queue/GetMinStack.cpp)
 
 **堆栈**
 
@@ -40,7 +55,7 @@ N个数，N+1个桶。这样一定有一个非空桶。那么最大插值就在�
 
 使用两个栈，一个正常记录元素，一个栈记录当前栈内最小的元素。两个栈同步入栈，出栈。
 
-4.[队列和栈转换](./stack&queue/StackAndQueueConvert.cpp)
+e4.[队列和栈转换](./stack&queue/StackAndQueueConvert.cpp)
 
 **队列、堆栈**
 
@@ -48,7 +63,7 @@ N个数，N+1个桶。这样一定有一个非空桶。那么最大插值就在�
 
 栈实现队列：两个栈A, B，当入栈时进入A，需要出栈操作时，若B为空，则将A中元素出栈，入B栈。再将B实际pop出去。
 
-5.[猫狗队列](./stack&queue/DogCatQueue.cpp)
+e5.[猫狗队列](./stack&queue/DogCatQueue.cpp)
 
 **队列、时间戳、继承、多态、智能指针**
 
@@ -62,7 +77,7 @@ N个数，N+1个桶。这样一定有一个非空桶。那么最大插值就在�
 
 使用时间戳。两个队列，Cat和Dog。进入队列时记录进入的时间，两个队列最顶上谁早pollAll时出谁。
 
-6.[螺旋打印矩阵](./array/PrintMatrixSpiralOrder.cpp)
+e6.[螺旋打印矩阵](./array/PrintMatrixSpiralOrder.cpp)
 
 **将微观问题从宏观角度分解**
 
@@ -72,7 +87,7 @@ N个数，N+1个桶。这样一定有一个非空桶。那么最大插值就在�
 
 错误思考方向：有一个打印坐标，打印坐标如何移动，例如先向左移动多少，再向下。。。
 
-7.[矩阵旋转](./array/RotateMatrix.cpp)
+e7.[矩阵旋转](./array/RotateMatrix.cpp)
 
 **微观问题宏观思考**
 
