@@ -1,11 +1,12 @@
 /**
  * @file Template.cpp
  * @author huipengly
- * @brief 写笔试题目的c++模板
+ * @brief 删除链表倒数第N个节点
  * @version 0.1
  * @date 2018-12-20
  * 
- * @note 包含了常用的库文件，随机数引擎，测试程序
+ * @note 两种解法，1.第一遍遍历找到数组长度L，第二遍遍历删除L-N+1的节点
+ *				 2.两个指针，快指针比慢指针快N+1
  */
 #include <iostream>
 #include <vector>
