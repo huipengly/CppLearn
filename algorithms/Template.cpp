@@ -37,6 +37,9 @@ vector<int> generateRandomArray(int maxSize, int maxValue);
 template <typename T> bool isEqual(T &lhs, T &rhs);
 void test();
 
+// 打印二维vector
+template <typename T> ostream& operator<<(ostream &os, const vector<vector<T>> &matrix);
+
 int main()
 {
 	test();
@@ -111,4 +114,21 @@ void test()
 	}
 
 	cout << (succeed ? "passed" : "BUG!") << endl;
+}
+
+template <typename T>
+ostream& operator<<(ostream &os, const vector<vector<T>> &matrix)
+{
+	if (matrix.empty())
+		return os;
+	auto rowSize = matrix.size();			// 行大小
+	auto colSize = matrix[0].size();		// 列大小
+	for (int i = 0; i != rowSize; ++i)
+	{
+		for (int j = 0; j != colSize; ++j)
+		{
+			os << matrix[i][j] << ", \t";
+		}
+		os << "\n";
+	}
 }
