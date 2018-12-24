@@ -29,6 +29,10 @@
 
 交换节点pre和next指针。返回原链表的尾节点。
 
+2.4 打印有序链表公共部分
+
+类似merge的过程
+
 3.[array]()
 
 3.1[螺旋打印矩阵](./array/PrintMatrixSpiralOrder.cpp)
