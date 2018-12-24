@@ -38,6 +38,16 @@ default_random_engine e(rd());	// 随机数引擎
 //    ListNode(int x) : val(x), next(NULL) {}
 //};
 
+//// 双向链表结构
+// struct DoublyListNode {
+//     int val;
+// 	shared_ptr<DoublyListNode> pre;
+//     shared_ptr<DoublyListNode> next;
+// 	//ListNode *pre;
+// 	//ListNode *next;
+// 	DoublyListNode(int x) : val(x), pre(NULL), next(NULL) {}
+// };
+
 // 测试用
 auto testMethod(vector<int> &a);
 auto compareMethod(vector<int> &a);
