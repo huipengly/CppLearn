@@ -30,13 +30,19 @@ default_random_engine e(rd());	// 随机数引擎
 
 // shared_ptr<int> pint = make_shared<int>();   // 智能指针&申请内存
 
-//// 链表结构
-//struct ListNode {
-//    int val;
-//    shared_ptr<ListNode> next;		// 自动回收内存
-//	//ListNode *next;
-//    ListNode(int x) : val(x), next(NULL) {}
-//};
+// 链表结构
+struct ListNode {
+   int val;
+	ListNode *next;
+   ListNode(int x) : val(x), next(NULL) {}
+};
+
+// 链表结构，使用智能指针
+struct ListNodeUseSharedPtr {
+   int val;
+   shared_ptr<ListNode> next;		// 自动回收内存
+   ListNodeUseSharedPtr(int x) : val(x), next(NULL) {}
+};
 
 //// 双向链表结构
 // struct DoublyListNode {
@@ -57,6 +63,7 @@ void test();
 
 // 打印二维vector
 template <typename T> ostream& operator<<(ostream &os, const vector<vector<T>> &matrix);
+ostream& operator<<(ostream &os, const ListNode *head);
 
 int main()
 {
@@ -149,4 +156,15 @@ ostream& operator<<(ostream &os, const vector<vector<T>> &matrix)
 		}
 		os << "\n";
 	}
+}
+
+ostream &operator<<(ostream & os, const ListNode * head)
+{
+	auto *curr = head;
+	while (curr != nullptr)
+	{
+		os << curr->val << " ";
+		curr = curr->next;
+	}
+	return os;
 }
