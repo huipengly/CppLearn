@@ -78,15 +78,16 @@ vector<int> generateRandomArray(int maxSize, int maxValue);
 template <typename T> bool isEqual(T &lhs, T &rhs);
 void test();
 
-// 打印vector
-template <typename T> ostream& operator<<(ostream &os, const vector<T> &array);
-ostream& operator<<(ostream &os, const ListNode *head);
-// 打印链表
-ostream& operator<<(ostream &os, const ListNode *head);
-// 打印二叉树
-ostream &operator<<(ostream &os, const TreeNode *head);
-// 分割字符串
-queue<string> splitString(const string &str, char c);
+// 打印用
+template <typename T> 
+ostream& operator<<(ostream &os, const vector<T> &array);			// 打印vector
+template <typename T> 
+ostream& operator<<(ostream &os, const vector<vector<T>> &matrix);	// 打印二维vector
+ostream& operator<<(ostream &os, const ListNode *head);				// 打印链表
+ostream &operator<<(ostream &os, const TreeNode *head);				// 打印二叉树
+
+// 功能性函数
+queue<string> splitString(const string &str, char c);				// 分割字符串
 
 int main()
 {
@@ -102,7 +103,7 @@ auto testMethod(vector<int> &a)
 
 auto compareMethod(vector<int> &a)
 {
-	// 对的方法
+	// 正确方法
 }
 
 // 产生随机大小，数目的数组
@@ -167,25 +168,22 @@ void test()
 template <typename T> 
 ostream& operator<<(ostream &os, const vector<T> &array)
 {
-	for (auto &i : array)
-		os << i << ", \t";
+	for (int i = 0; i != array.size() - 1; ++i)
+		os << array[i] << "\t,";
+	os << array.back();
 	return os;
 }
 
 template <typename T>
 ostream& operator<<(ostream &os, const vector<vector<T>> &matrix)
 {
-	if (matrix.empty())
-		return os;
-	auto rowSize = matrix.size();			// 行大小
-	auto colSize = matrix[0].size();		// 列大小
-	for (int i = 0; i != rowSize; ++i)
+	for (int i = 0; i != matrix.size(); ++i)
 	{
-		for (int j = 0; j != colSize; ++j)
+		for (int j = 0; j != matrix[i].size() - 1; ++j)
 		{
-			os << matrix[i][j] << ", \t";
+			os << matrix[i][j] << ",\t";
 		}
-		os << "\n";
+		cout << matrix[i].back() << "\n";
 	}
 	return os;
 }
