@@ -72,6 +72,8 @@ void test();
 // 打印vector
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &array);
 ostream& operator<<(ostream &os, const ListNode *head);
+// 打印二叉树
+void printTree(TreeNode *head);
 
 int main()
 {
@@ -184,4 +186,25 @@ ostream &operator<<(ostream & os, const ListNode * head)
 		curr = curr->next;
 	}
 	return os;
+}
+
+void printInOrder(TreeNode *head, int height, string to, int len)
+{
+	if (head == nullptr)
+		return;
+	printInOrder(head->right, height + 1, "v", len);
+	string val = to + to_string(head->val) + to;
+	int lenM = val.length();
+	int lenL = (len - lenM) / 2;
+	int lenR = len - lenM - lenL;
+	val = string(lenL, ' ') + val + string(lenL, ' ');
+	cout << string(height * len, ' ') + val << endl;
+	printInOrder(head->left, height + 1, "^", len);
+}
+
+void printTree(TreeNode *head)
+{
+	cout << "Binary Tree:" << endl;
+	printInOrder(head, 0, "H", 17);
+	cout << endl;
 }
