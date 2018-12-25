@@ -32,27 +32,35 @@ default_random_engine e(rd());	// 随机数引擎
 
 // 链表结构
 struct ListNode {
-   int val;
+	int val;
 	ListNode *next;
-   ListNode(int x) : val(x), next(NULL) {}
+	ListNode(int x) : val(x), next(NULL) {}
 };
 
 // 链表结构，使用智能指针
 struct ListNodeUseSharedPtr {
-   int val;
-   shared_ptr<ListNode> next;		// 自动回收内存
-   ListNodeUseSharedPtr(int x) : val(x), next(NULL) {}
+	int val;
+	shared_ptr<ListNode> next;		// 自动回收内存
+	ListNodeUseSharedPtr(int x) : val(x), next(NULL) {}
 };
 
-//// 双向链表结构
-// struct DoublyListNode {
-//     int val;
-// 	shared_ptr<DoublyListNode> pre;
-//     shared_ptr<DoublyListNode> next;
-// 	//ListNode *pre;
-// 	//ListNode *next;
-// 	DoublyListNode(int x) : val(x), pre(NULL), next(NULL) {}
-// };
+// 双向链表结构
+struct DoublyListNode {
+	int val;
+	shared_ptr<DoublyListNode> pre;
+	shared_ptr<DoublyListNode> next;
+	//ListNode *pre;
+	//ListNode *next;
+	DoublyListNode(int x) : val(x), pre(NULL), next(NULL) {}
+};
+
+// 二叉树节点
+struct TreeNode {
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
 
 // 测试用
 auto testMethod(vector<int> &a);
