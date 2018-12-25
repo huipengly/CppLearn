@@ -1,7 +1,7 @@
 /**
  * @file TreeTraversal.cpp
  * @author huipengly
- * @brief 二叉树前序、中序、后序遍历
+ * @brief 二叉树前序、中序、后序、按层遍历
  * @version 0.1
  * @date 2018-12-25
  * 
@@ -72,6 +72,8 @@ void test();
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &array);
 template <typename T> ostream& operator<<(ostream &os, const vector<vector<T>> &matrix);
 ostream& operator<<(ostream &os, const ListNode *head);
+// 打印二叉树
+ostream &operator<<(ostream &os, const TreeNode *head);
 
 // 递归遍历
 class Solution1 {
@@ -168,16 +170,38 @@ public:
 		}
 		return vector<int>(reverseOrder.rbegin(), reverseOrder.rend());
 	}
+	vector<int> levelTraversal(TreeNode *root){
+		vector<int> levelOrder;
+		if (root == nullptr)
+			return levelOrder;
+
+		queue<TreeNode *> queue;
+		queue.push(root);
+		while (!queue.empty())
+		{
+			auto *front = queue.front();
+			queue.pop();
+			levelOrder.push_back(front->val);
+			if (front->left != nullptr)
+				queue.push(front->left);
+			if (front->right != nullptr)
+				queue.push(front->right);
+		}
+		return levelOrder;
+	}
 };
 
 int main()
 {
-	TreeNode *t1{ new TreeNode(1) }, *t2{ new TreeNode(2) }, *t3{ new TreeNode(4) };
-	t1->right = t2;
-	t2->left = t3;
+	TreeNode *head = new TreeNode(1);
+	head->left = new TreeNode(2);
+	head->right = new TreeNode(3);
+	head->right->left = new TreeNode(4);
+	head->right->right = new TreeNode(5);
+	cout << head;
 
 	Solution2 s;
-	cout << s.postorderTraversal(t1);
+	cout << s.levelTraversal(head);
 	cout << endl;
     return 0;
 }
@@ -286,5 +310,32 @@ ostream &operator<<(ostream & os, const ListNode * head)
 		os << curr->val << " ";
 		curr = curr->next;
 	}
+	return os;
+}
+
+void printInOrder(const TreeNode *head, int height, string to, int len, ostream &os)
+{
+	if (head == nullptr)
+		return;
+	printInOrder(head->right, height + 1, "v", len, os);
+	string val = to + to_string(head->val) + to;
+	int lenM = val.length();
+	int lenL = (len - lenM) / 2;
+	int lenR = len - lenM - lenL;
+	val = string(lenL, ' ') + val + string(lenL, ' ');
+	os << string(height * len, ' ') + val << endl;
+	printInOrder(head->left, height + 1, "^", len, os);
+}
+
+void printTree(const TreeNode *head, ostream &os)
+{
+	os << "Binary Tree:" << endl;
+	printInOrder(head, 0, "H", 17, os);
+	os << endl;
+}
+
+ostream &operator<<(ostream &os, const TreeNode *head)
+{
+	printTree(head, os);
 	return os;
 }
