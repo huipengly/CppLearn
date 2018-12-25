@@ -113,6 +113,12 @@ z字形分解为n条斜线，寻找斜线两个端点坐标变化趋势
 
 需要从左下角或右上角出发，这样才能使得大于、小于有确切的移动方向。比如从右上角，如果num大于matrix[i][j]，则向下移动，小于则向左移动。若在左上角则做不到
 
+3.5[查找局部最大值](../leetcode/162.%20Find%20Peak%20Element/162.%20Find%20Peak%20Element.cpp)
+
+遍历法O(n)。
+
+二分法，在mid处看趋势，mid如果是上升趋势，则将lo变为mid；mid如果是下降趋势，则将hi改为mid。O(logn)
+
 extra.笔试题
 
 e1.[最大间隔](./sort/MaxGap.cpp)：
