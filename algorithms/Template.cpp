@@ -69,8 +69,8 @@ vector<int> generateRandomArray(int maxSize, int maxValue);
 template <typename T> bool isEqual(T &lhs, T &rhs);
 void test();
 
-// 打印二维vector
-template <typename T> ostream& operator<<(ostream &os, const vector<vector<T>> &matrix);
+// 打印vector
+template <typename T> ostream& operator<<(ostream &os, const vector<T> &array);
 ostream& operator<<(ostream &os, const ListNode *head);
 
 int main()
@@ -149,6 +149,14 @@ void test()
 	cout << (succeed ? "passed" : "BUG!") << endl;
 }
 
+template <typename T> 
+ostream& operator<<(ostream &os, const vector<T> &array)
+{
+	for (auto &i : array)
+		os << i << ", \t";
+	return os;
+}
+
 template <typename T>
 ostream& operator<<(ostream &os, const vector<vector<T>> &matrix)
 {
@@ -164,6 +172,7 @@ ostream& operator<<(ostream &os, const vector<vector<T>> &matrix)
 		}
 		os << "\n";
 	}
+	return os;
 }
 
 ostream &operator<<(ostream & os, const ListNode * head)
