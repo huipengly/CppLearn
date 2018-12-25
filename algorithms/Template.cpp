@@ -3,7 +3,7 @@
  * @author huipengly
  * @brief 写笔试题目的c++模板
  * @version 0.1
- * @date 2018-12-20
+ * @date 2018-12-25
  * 
  * @note 包含了常用的库文件，随机数引擎，测试程序
  */
@@ -19,8 +19,17 @@
 #include <queue>
 #include <stack>
 #include <memory>
+#include <sstream>
 
 using namespace std;
+
+// 加速流读写
+static const int _ = []() {
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+	cout.tie(0);
+	return 0;
+}();
 
 std::random_device rd;			// 用来播种
 default_random_engine e(rd());	// 随机数引擎
@@ -72,8 +81,12 @@ void test();
 // 打印vector
 template <typename T> ostream& operator<<(ostream &os, const vector<T> &array);
 ostream& operator<<(ostream &os, const ListNode *head);
+// 打印链表
+ostream& operator<<(ostream &os, const ListNode *head);
 // 打印二叉树
-void printTree(TreeNode *head);
+ostream &operator<<(ostream &os, const TreeNode *head);
+// 分割字符串
+queue<string> splitString(const string &str, char c);
 
 int main()
 {
@@ -188,23 +201,39 @@ ostream &operator<<(ostream & os, const ListNode * head)
 	return os;
 }
 
-void printInOrder(TreeNode *head, int height, string to, int len)
+void printInOrder(const TreeNode *head, int height, string to, int len, ostream &os)
 {
 	if (head == nullptr)
 		return;
-	printInOrder(head->right, height + 1, "v", len);
+	printInOrder(head->right, height + 1, "v", len, os);
 	string val = to + to_string(head->val) + to;
 	int lenM = val.length();
 	int lenL = (len - lenM) / 2;
 	int lenR = len - lenM - lenL;
 	val = string(lenL, ' ') + val + string(lenL, ' ');
-	cout << string(height * len, ' ') + val << endl;
-	printInOrder(head->left, height + 1, "^", len);
+	os << string(height * len, ' ') + val << endl;
+	printInOrder(head->left, height + 1, "^", len, os);
 }
 
-void printTree(TreeNode *head)
+void printTree(const TreeNode *head, ostream &os)
 {
-	cout << "Binary Tree:" << endl;
-	printInOrder(head, 0, "H", 17);
-	cout << endl;
+	os << "Binary Tree:" << endl;
+	printInOrder(head, 0, "H", 17, os);
+	os << endl;
+}
+
+ostream &operator<<(ostream &os, const TreeNode *head)
+{
+	printTree(head, os);
+	return os;
+}
+
+queue<string> splitString(const string &str, char c)
+{
+	istringstream streamStr(str);
+	string temp;
+	queue<string> queue;
+	while (getline(streamStr, temp, c))
+		queue.push(temp);
+	return queue;
 }
