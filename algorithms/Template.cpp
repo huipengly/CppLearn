@@ -20,6 +20,7 @@
 #include <stack>
 #include <memory>
 #include <sstream>
+#include <cmath>
 
 using namespace std;
 
@@ -88,10 +89,22 @@ ostream &operator<<(ostream &os, const TreeNode *head);				// 打印二叉树
 
 // 功能性函数
 queue<string> splitString(const string &str, char c);				// 分割字符串
+TreeNode *makeCBT(int nodeNum);										// 生成拥有n个节点的完全二叉树
+void postorderFree(TreeNode* root);									// 后序遍历法释放二叉树内存
+
+
+/********************下面写代码********************/
+
+
+
+/********************上面写代码********************/
+
 
 int main()
 {
 	test();
+
+	//_CrtDumpMemoryLeaks();		// vs判断内存泄漏
     return 0;
 }
 
@@ -234,4 +247,43 @@ queue<string> splitString(const string &str, char c)
 	while (getline(streamStr, temp, c))
 		queue.push(temp);
 	return queue;
+}
+
+TreeNode *makeCBT(int nodeNum)
+{
+	if (nodeNum == 0)
+		return nullptr;
+	TreeNode *head = new TreeNode(1);
+	queue<TreeNode *> queue;
+	queue.push(head);
+	int i = 2;
+	while (i <= nodeNum)
+	{
+		auto *front = queue.front();
+		queue.pop();
+		front->left = new TreeNode(i++);
+		queue.push(front->left);
+		if (i <= nodeNum)
+		{
+			front->right = new TreeNode(i++);
+			queue.push(front->right);
+		}
+	}
+	return head;
+}
+
+void postorderFree(TreeNode* root)
+{
+	if (root == nullptr)
+		return;
+
+	if (root->left == nullptr && root->right == nullptr)
+	{
+		delete root;
+		return;
+	}
+
+	postorderFree(root->left);
+	postorderFree(root->right);
+	delete root;
 }
