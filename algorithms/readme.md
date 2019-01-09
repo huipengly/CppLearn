@@ -243,7 +243,9 @@ N=2时，打印： down down up
 
 # 7 string
 
-## 
+## 7.1 查找两字符串相同字符
+
+字符串find
 
 # extra.笔试题
 
