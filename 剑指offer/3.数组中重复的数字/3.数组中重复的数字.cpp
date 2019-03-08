@@ -47,3 +47,20 @@ bool duplicate(int numbers[], int length, int* duplication) {
     }
     return false;
 }
+
+// 时间o(n)，空间o(1)，更好的解法，i是顺序变化的，上一个是乱序变化的
+bool duplicate(int numbers[], int length, int* duplication) {
+	for (int i = 0; i != length; ++i)
+	{
+		while (i != numbers[i])
+		{
+			if (numbers[i] == numbers[numbers[i]])
+			{
+				*duplication = numbers[i];
+				return true;
+			}
+			std::swap(numbers[i], numbers[numbers[i]]);
+		}
+	}
+	return false;
+}
