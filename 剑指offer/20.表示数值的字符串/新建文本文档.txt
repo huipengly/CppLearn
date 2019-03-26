@@ -1,0 +1,26 @@
+		if (string[index] == '+' || string[index] == '-')
+		{
+			if (string[index + 1] != '\0')
+				return false;
+			else
+				++string;
+		}
+
+		if (*string == 'e')
+			return false;
+
+		while (string != '\0')
+		{
+			int distance = *string - '0';
+			if (distance >= 0 && distance <= 9)
+				++string;
+			else if (*string == '.')
+			{
+				if (++dot_counter > 1)
+					return false;
+			}
+			else if (*string == 'e')
+			{
+
+			}
+		}
