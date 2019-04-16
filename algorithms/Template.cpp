@@ -91,6 +91,7 @@ ostream &operator<<(ostream &os, const TreeNode *head);				// 打印二叉树
 queue<string> splitString(const string &str, char c);				// 分割字符串
 TreeNode *makeCBT(int nodeNum);										// 生成拥有n个节点的完全二叉树
 void postorderFree(TreeNode* root);									// 后序遍历法释放二叉树内存
+ListNode* vector_to_linked_list(const vector<int> &arr);			// vector生成链表
 
 
 /********************下面写代码********************/
@@ -286,4 +287,16 @@ void postorderFree(TreeNode* root)
 	postorderFree(root->left);
 	postorderFree(root->right);
 	delete root;
+}
+
+ListNode* vector_to_linked_list(const vector<int> &arr)
+{
+	ListNode *head = new ListNode(arr[0]);
+	auto *ptr = head;
+	for (int i = 1; i != arr.size(); ++i)
+	{
+		ptr->next = new ListNode(arr[i]);
+		ptr = ptr->next;
+	}
+	return head;
 }
