@@ -13,14 +13,14 @@ struct TreeNode {
 // DFS
 class Solution {
 public:
-	void PrintFromTopToBottom(TreeNode* root) {
-		if (root == nullptr)
-			return;
+	vector<vector<int> > Print(TreeNode* pRoot) {
+		if (pRoot == nullptr)
+			return {};
 		queue<TreeNode *> node_queue;
 		int current = 1, next = 0;
 		bool reverse = false;
 		vector<int> nodes;
-		node_queue.push(root);
+		node_queue.push(pRoot);
 		while (!node_queue.empty())
 		{
 			auto *node = node_queue.front();
@@ -46,24 +46,24 @@ public:
 				next = 0;
 			}
 		}
+		return ret;
 	}
 private:
+	vector<vector<int>> ret;
 	void print(vector<int> &arr, bool reverse)
 	{
+		vector<int> result;
 		if (reverse)
 		{
-			cout << *arr.crbegin();
-			for (auto it = arr.crbegin() + 1; it != arr.crend(); ++it)
-				cout << " " << *it;
-			cout << endl;
+			for (auto it = arr.crbegin(); it != arr.crend(); ++it)
+				result.push_back(*it);
 		}
 		else
 		{
-			cout << *arr.cbegin();
-			for (auto it = arr.cbegin() + 1; it != arr.cend(); ++it)
-				cout << " " << *it;
-			cout << endl;
+			for (auto it = arr.cbegin(); it != arr.cend(); ++it)
+				result.push_back(*it);
 		}
+		ret.push_back(result);
 	}
 };
 

@@ -12,20 +12,46 @@ struct TreeNode {
 // DFS
 class Solution {
 public:
-	vector<int> PrintFromTopToBottom(TreeNode* root) {
-		vector<int> ret;
-		if (root == nullptr)
-			return ret;
+	vector<vector<int> > Print(TreeNode* pRoot) {
+		if (pRoot == nullptr)
+			return {};
 		queue<TreeNode *> node_queue;
-		node_queue.push(root);
+		int current = 1, next = 0;
+		vector<int> nodes;
+		node_queue.push(pRoot);
 		while (!node_queue.empty())
 		{
 			auto *node = node_queue.front();
 			node_queue.pop();
-			ret.push_back(node->val);
-			if (node->left != nullptr) node_queue.push(node->left);
-			if (node->right != nullptr) node_queue.push(node->right);
+			nodes.push_back(node->val);
+			--current;
+			if (node->left != nullptr)
+			{
+				++next;
+				node_queue.push(node->left);
+			}
+			if (node->right != nullptr)
+			{
+				++next;
+				node_queue.push(node->right);
+			}
+			if (current == 0)
+			{
+				print(nodes);
+				nodes.clear();
+				current = next;
+				next = 0;
+			}
 		}
 		return ret;
+	}
+private:
+	vector<vector<int>> ret;
+	void print(vector<int> &arr)
+	{
+		vector<int> result;
+		for (auto it = arr.cbegin(); it != arr.cend(); ++it)
+			result.push_back(*it);
+		ret.push_back(result);
 	}
 };
