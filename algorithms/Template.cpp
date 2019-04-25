@@ -92,6 +92,7 @@ queue<string> splitString(const string &str, char c);				// 分割字符串
 TreeNode *makeCBT(int nodeNum);										// 生成拥有n个节点的完全二叉树
 void postorderFree(TreeNode* root);									// 后序遍历法释放二叉树内存
 ListNode* vector_to_linked_list(const vector<int> &arr);			// vector生成链表
+template<typename T> void swap(T &lhs, T &rhs);
 
 
 /********************下面写代码********************/
@@ -299,4 +300,13 @@ ListNode* vector_to_linked_list(const vector<int> &arr)
 		ptr = ptr->next;
 	}
 	return head;
+}
+
+// O(1)的swap
+template<typename T>
+void swap(T &lhs, T &rhs)
+{
+	T temp = std::move(lhs);
+	lhs = std::move(rhs);
+	rhs = std::move(temp);
 }
