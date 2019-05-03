@@ -44,14 +44,7 @@ default_random_engine e(rd());	// 随机数引擎
 struct ListNode {
 	int val;
 	ListNode *next;
-	ListNode(int x) : val(x), next(NULL) {}
-};
-
-// 链表结构，使用智能指针
-struct ListNodeUseSharedPtr {
-	int val;
-	shared_ptr<ListNode> next;		// 自动回收内存
-	ListNodeUseSharedPtr(int x) : val(x), next(NULL) {}
+	ListNode(int x) : val(x), next(nullptr) {}
 };
 
 // 双向链表结构
@@ -61,7 +54,7 @@ struct DoublyListNode {
 	shared_ptr<DoublyListNode> next;
 	//ListNode *pre;
 	//ListNode *next;
-	DoublyListNode(int x) : val(x), pre(NULL), next(NULL) {}
+	DoublyListNode(int x) : val(x), pre(nullptr), next(nullptr) {}
 };
 
 // 二叉树节点
@@ -69,7 +62,7 @@ struct TreeNode {
 	int val;
 	TreeNode *left;
 	TreeNode *right;
-	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
 
 // 测试用
@@ -214,6 +207,18 @@ ostream &operator<<(ostream & os, const ListNode * head)
 	return os;
 }
 
+ListNode* vector_to_linked_list(const vector<int> &arr)
+{
+	ListNode *head = new ListNode(arr[0]);
+	auto *ptr = head;
+	for (int i = 1; i != arr.size(); ++i)
+	{
+		ptr->next = new ListNode(arr[i]);
+		ptr = ptr->next;
+	}
+	return head;
+}
+
 void printInOrder(const TreeNode *head, int height, string to, int len, ostream &os)
 {
 	if (head == nullptr)
@@ -288,18 +293,6 @@ void postorderFree(TreeNode* root)
 	postorderFree(root->left);
 	postorderFree(root->right);
 	delete root;
-}
-
-ListNode* vector_to_linked_list(const vector<int> &arr)
-{
-	ListNode *head = new ListNode(arr[0]);
-	auto *ptr = head;
-	for (int i = 1; i != arr.size(); ++i)
-	{
-		ptr->next = new ListNode(arr[i]);
-		ptr = ptr->next;
-	}
-	return head;
 }
 
 // O(1)的swap
