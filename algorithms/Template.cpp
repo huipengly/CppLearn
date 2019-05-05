@@ -219,32 +219,31 @@ ListNode* vector_to_linked_list(const vector<int> &arr)
 	return head;
 }
 
-void printInOrder(const TreeNode *head, int height, string to, int len, ostream &os)
+// 打印二叉树
+void printInOrder(const TreeNode* head, int len, char to, int height, ostream& os)
 {
 	if (head == nullptr)
 		return;
-	printInOrder(head->right, height + 1, "v", len, os);
-	string val = to + to_string(head->val) + to;
-	int lenM = val.length();
-	int lenL = (len - lenM) / 2;
-	int lenR = len - lenM - lenL;
-	val = string(lenL, ' ') + val + string(lenL, ' ');
-	os << string(height * len, ' ') + val << endl;
-	printInOrder(head->left, height + 1, "^", len, os);
+
+	printInOrder(head->right, len + 1, 'v', height, os);
+	std::string val = to + to_string(head->val) + to;
+	os << setw(height * (len + 1)) << val << endl;
+	printInOrder(head->left, len + 1, '^', height, os);
 }
 
-void printTree(const TreeNode *head, ostream &os)
+void printTree(const TreeNode * head, ostream & os)
 {
 	os << "Binary Tree:" << endl;
-	printInOrder(head, 0, "H", 17, os);
+	printInOrder(head, 0, 'H', 17, os);
 	os << endl;
 }
 
-ostream &operator<<(ostream &os, const TreeNode *head)
+ostream& operator<<(ostream & os, const TreeNode * head)
 {
 	printTree(head, os);
 	return os;
 }
+// 打印二叉树
 
 queue<string> splitString(const string &str, char c)
 {
