@@ -16,8 +16,7 @@ string preOrderSerialization(TreeNode* head)
 {
 	if (head == nullptr)
 		return "#!";
-	string str{};
-	str += to_string(head->val) + '!';
+	string str = to_string(head->val) + '!';
 	str += preOrderSerialization(head->left);
 	str += preOrderSerialization(head->right);
 	return str;
