@@ -74,6 +74,28 @@ void inOrder(TreeNode* pRoot)
 	}
 }
 
+void inOrder2(TreeNode* head)
+{
+	if (head == nullptr)
+		return;
+	stack<TreeNode*> stack;
+	while (!stack.empty() || head != nullptr)
+	{
+		if (head != nullptr)
+		{
+			stack.push(head);
+			head = head->left;
+		}
+		else
+		{
+			head = stack.top();
+			stack.pop();
+			cout << head->val << endl;
+			head = head->right;
+		}
+	}
+}
+
 void postOrderRecursive(TreeNode* pRoot)
 {
 	if (pRoot == nullptr)
