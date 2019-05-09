@@ -12,7 +12,7 @@ TreeNodeWithParent* inorderSuccessorInBST(TreeNodeWithParent* node)
 	if (node == nullptr)
 		return nullptr;
 
-	// å¦‚æžœnodeå³å­æ ‘ä¸ä¸ºç©ºï¼Œåˆ™è¿”å›žå³å­æ ‘æœ€å·¦
+	// Èç¹ûnodeÓÒ×ÓÊ÷²»Îª¿Õ£¬Ôò·µ»ØÓÒ×ÓÊ÷×î×ó
 	if (node->right != nullptr)
 	{
 		auto* cur = node->right;
@@ -21,12 +21,12 @@ TreeNodeWithParent* inorderSuccessorInBST(TreeNodeWithParent* node)
 		return cur;
 	}
 
-	// å¦‚æžœå³å­æ ‘ä¸ºç©º
+	// Èç¹ûÓÒ×ÓÊ÷Îª¿Õ
 	auto* parent = node->parent;
 
-	// å¦‚æžœparentä¸ºç©ºï¼Œä¸è¿›å…¥å¾ªçŽ¯ï¼Œç›´æŽ¥è¿”å›žç©º
-	// å¦‚æžœparentçš„å·¦å­æ ‘ä¸ºnodeï¼Œé‚£ä¹ˆparentå°±æ˜¯ä¸‹ä¸€ä¸ªï¼Œè€Œä¸”ä¸è¿›å…¥å¾ªçŽ¯ï¼Œç›´æŽ¥è¿”å›žparent
-	// å¦‚æžœparentçš„å³å­æ ‘ä¸ºnodeï¼Œé‚£ä¹ˆä»¤nodeä¸ºparentï¼Œå¾ªçŽ¯æœç´¢ä¸€ä¸ªå·¦å­æ ‘ä¸ºnodeçš„parentï¼Œè¿”å›žè¿™ä¸ªparent
+	// Èç¹ûparentÎª¿Õ£¬²»½øÈëÑ­»·£¬Ö±½Ó·µ»Ø¿Õ
+	// Èç¹ûparentµÄ×ó×ÓÊ÷Îªnode£¬ÄÇÃ´parent¾ÍÊÇÏÂÒ»¸ö£¬¶øÇÒ²»½øÈëÑ­»·£¬Ö±½Ó·µ»Øparent
+	// Èç¹ûparentµÄÓÒ×ÓÊ÷Îªnode£¬ÄÇÃ´ÁînodeÎªparent£¬Ñ­»·ËÑË÷Ò»¸ö×ó×ÓÊ÷ÎªnodeµÄparent£¬·µ»ØÕâ¸öparent
 	while (parent != nullptr && parent->right == node)
 	{
 		node = parent;
