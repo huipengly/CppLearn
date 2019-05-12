@@ -21,6 +21,7 @@
 #include <memory>
 #include <sstream>
 #include <cmath>
+#include <iomanip>
 
 using namespace std;
 
@@ -74,18 +75,19 @@ void test();
 
 // 打印用
 template <typename T> 
-ostream& operator<<(ostream &os, const vector<T> &array);			// 打印vector
-template <typename T> 
-ostream& operator<<(ostream &os, const vector<vector<T>> &matrix);	// 打印二维vector
-ostream& operator<<(ostream &os, const ListNode *head);				// 打印链表
-ostream &operator<<(ostream &os, const TreeNode *head);				// 打印二叉树
-
-// 功能性函数
-queue<string> splitString(const string &str, char c);				// 分割字符串
-TreeNode *makeCBT(int nodeNum);										// 生成拥有n个节点的完全二叉树
-void postorderFree(TreeNode* root);									// 后序遍历法释放二叉树内存
-ListNode* vector_to_linked_list(const vector<int> &arr);			// vector生成链表
+ostream& operator<<(ostream &os, const vector<T> &array);				// 打印vector
+template <typename T> 	
+ostream& operator<<(ostream &os, const vector<vector<T>> &matrix);		// 打印二维vector
+ostream& operator<<(ostream &os, const ListNode *head);					// 打印链表
+ostream &operator<<(ostream &os, const TreeNode *head);					// 打印二叉树
+	
+// 功能性函数	
+queue<string> splitString(const string &str, char c);					// 分割字符串
+TreeNode *makeCBT(int nodeNum);											// 生成拥有n个节点的完全二叉树
+void postorderFree(TreeNode* root);										// 后序遍历法释放二叉树内存
+ListNode* vector_to_linked_list(const vector<int> &arr);				// vector生成链表
 template<typename T> void swap(T &lhs, T &rhs);
+std::vector<std::string> split(const std::string& s, char delimiter);	// 分割字符串
 
 
 /********************下面写代码********************/
@@ -302,3 +304,17 @@ void swap(T &lhs, T &rhs)
 	lhs = std::move(rhs);
 	rhs = std::move(temp);
 }
+
+// 分割字符串
+std::vector<std::string> split(const std::string& s, char delimiter)
+{
+   std::vector<std::string> tokens;
+   std::string token;
+   std::istringstream tokenStream(s);
+   while (std::getline(tokenStream, token, delimiter))
+   {
+      tokens.push_back(token);
+   }
+   return tokens;
+}
+// 分割字符串
