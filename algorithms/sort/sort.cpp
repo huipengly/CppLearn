@@ -197,7 +197,7 @@ void QuickSort3Way(vector<int> &a)
 
 // heap sort
 template <typename T>
-void heapSort(vector<T> &a)
+void heapSortWithPQ(vector<T> &a)
 {
     priority_queue<T> pq;
     for (auto i : a)
@@ -207,6 +207,34 @@ void heapSort(vector<T> &a)
 	{
 		a[i--] = pq.top();
 		pq.pop();
+	}
+}
+
+// heap sort 自己实现
+template <typename T>
+void sink(vector<T> &a, int k, int N)
+{
+	while (2 * k + 1 <= N)
+	{
+		int j = 2 * k + 1;
+		if (j < N && a[j] < a[j + 1])		// j和j+1是k的两个子节点，找出其中最大的一个
+			++j;
+		if (a[k] > a[j])
+			break;
+		swap(a[k], a[j]);
+		k = j;
+	}
+}
+template <typename T>
+void heapSort(vector<T> &a)
+{
+	int N = a.size() - 1;
+	for (int k = (N - 1) / 2; k >= 0; --k)
+		sink(a, k, N);
+	while (N > 0)
+	{
+		swap(a[0], a[N--]);
+		sink(a, 0, N);
 	}
 }
 
@@ -274,7 +302,7 @@ void lsdSort(vector<int> &a)
 // for test
 void testMethod(vector<int> &a)
 {
-	lsdSort(a);
+	heapSort(a);
 }
 
 void compareMethod(vector<int> &a)
