@@ -3,6 +3,9 @@ using std::vector;
 #include <algorithm>
 using std::sort;
 
+// »¹ÓÐspace O(1)µÄ£ºhttps://leetcode.com/problems/wiggle-sort-ii/discuss/77677/O(n)%2BO(1)-after-median-Virtual-Indexing
+
+// time: O(nlogn) space: O(n)
 class Solution {
 public:
 	void wiggleSort(vector<int>& nums) {
@@ -30,7 +33,7 @@ public:
 
 int main()
 {
-	vector<int> nums{ 1, 1, 1, 4, 5, 6};
+	vector<int> nums{ 4, 5, 5, 6};
 	Solution s;
 	s.wiggleSort(nums);
 	return 0;
