@@ -28,7 +28,7 @@ bool isValid1(const string& str)
 // 书上的计数方法。如果需要计数比较两个数大小，可以对一个变量进行加减，判断正负。
 bool isValid2(const string& str)
 {
-	int status;
+	int status = 0;
 	for (char c : str)
 	{
 		if (c != '(' && c != ')')
